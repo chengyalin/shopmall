@@ -3,7 +3,7 @@
   <div class="indexPage">
     <!--banner图-->
     <div class="bannerBox">
-      <van-swipe class="bannerImgBox" :autoplay="6000">
+      <van-swipe class="bannerImgBox" :autoplay="6000" >
         <van-swipe-item v-for="(item, index) in sildeList" :key="index">
           <img :src="item.img" alt="">
         </van-swipe-item>
@@ -12,7 +12,7 @@
     <!--产品列表-->
     <div class="shopList">
       <div class="productPlate">
-        <h2 class="title"><span class="name">明星产品</span><router-link to="/indexPageList" class="showMore">更多 ></router-link></h2>
+        <h2 class="title"><span class="name">明星产品</span><router-link class="showMore" to="/indexPageList" >更多 ></router-link></h2>
         <div class="proList">
           <a href="">
             <i>折扣产品</i>

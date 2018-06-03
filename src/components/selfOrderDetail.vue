@@ -1,7 +1,7 @@
 <template>
   <!--个人的订单详情-->
   <div class="selfOrderDetail">
-    <div class="navBar"><img src="../assets/logo.png" alt="" class="goBack"> <p class="navName">订单详情</p></div>
+    <div class="navBar"><img src="/static/img/goBack.png" alt="" class="goBack"> <p class="navName">订单详情</p></div>
     <p class="orderNum">订单号：10029039209 </p>
     <div class="stepBar">
       <van-steps :active="active">
@@ -46,7 +46,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .navBar{height: 50px;line-height: 50px;background:rgba(247,247,247,1);}
-  .goBack{display: block; width: 8px;height: 14px;padding: 4px;position: absolute;top: 18px;left: 20px;}
+  .goBack{display: block; width: 8px;height: 14px;padding: 4px;position: absolute;top: 16px;left: 20px;}
   .navName{font-size: 18px;color:rgba(0,0,0,1);text-align: center;height: 50px;line-height: 50px;}
 
 .orderNum{height:34px;line-height:34px;font-size:14px;color: #000;padding-left: 30px;border-bottom:1px solid rgba(247,247,247,1)}
