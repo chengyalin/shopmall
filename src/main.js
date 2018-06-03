@@ -1,5 +1,3 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
 import router from './router'
@@ -9,7 +7,7 @@ import axios from 'axios'
 Vue.prototype.$http = axios
 import Vuex from 'vuex'
 Vue.use(Vuex)
-import {Icon, Button, Swipe, SwipeItem, List, Checkbox, CheckboxGroup, Card, SubmitBar, Toast,Lazyload,Loading } from 'vant'
+import {Icon, Button, Swipe, SwipeItem, List, Checkbox, CheckboxGroup, Card, SubmitBar, Toast,Lazyload,Loading,Step, Steps, NavBar } from 'vant'
 Vue.use(Icon)
   .use(Button)
   .use(Swipe)
@@ -22,6 +20,9 @@ Vue.use(Icon)
   .use(Toast)
   .use(Lazyload)
   .use(Loading)
+  .use(Step)
+  .use(Steps)
+  .use(NavBar)
 
 Vue.config.productionTip = false
 

@@ -1,7 +1,7 @@
 <template>
     <!--添加地址页-->
     <div class="addAdress">
-    <div>
+    </div>
 </template>
 
 <script>

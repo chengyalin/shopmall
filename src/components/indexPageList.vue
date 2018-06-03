@@ -1,18 +1,11 @@
 <template>
   <!--首页-->
-  <div class="indexPage">
-    <!--banner图-->
-    <div class="bannerBox">
-      <van-swipe class="bannerImgBox" :autoplay="6000">
-        <van-swipe-item v-for="(item, index) in sildeList" :key="index">
-          <img :src="item.img" alt="">
-        </van-swipe-item>
-      </van-swipe>
-    </div>
+  <div class="indexPageList">
+    <div class="navBar"><img src="../assets/logo.png" alt="" class="goBack"> <p class="navName">优点商城</p></div>
     <!--产品列表-->
     <div class="shopList">
       <div class="productPlate">
-        <h2 class="title"><span class="name">明星产品</span><router-link to="/indexPageList" class="showMore">更多 ></router-link></h2>
+        <h2 class="title"><span class="name">明星产品</span></h2>
         <div class="proList">
           <a href="">
             <i>折扣产品</i>
@@ -66,10 +59,9 @@
 
 <script>
 export default {
-  name: 'indexPage',
+  name: 'indexPageList',
   data () {
     return {
-      sildeList: [],
       LoadingOk: true
     }
   },
@@ -77,38 +69,20 @@ export default {
     this.fetchSlideList()
   },
   methods: {
-    //banner图填数据
-    fetchSlideList () {
-      const STATIC_URL = 'http://www.zhongkakeji.com/'
-      this.$http.get(STATIC_URL + '/ad/ad/list/', {
-        params: {
-          is_terminal: 'False'
-        }
-      }).then(({data}) => {
-        if (data.ok) {
-          this.sildeList = data.data.map(i => {
-            return {
-              img: (STATIC_URL + i.image)
-            }
-          }).sort((a, b) => a.order > b.order)
-          this.LoadingOk = false
-        }
-      })
-    }
+
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.bannerBox{width:360px; height: 210px;margin: 0 auto;}
-.bannerImgBox{display: block;width:360px; height: 210px;border-radius: 10px;}
-.bannerImgBox img{width:360px;height: 188px;border-radius: 10px;}
+.navBar{height: 50px;line-height: 50px;background:rgba(247,247,247,1);}
+.goBack{display: block; width: 8px;height: 14px;padding: 4px;position: absolute;top: 18px;left: 20px;}
+.navName{font-size: 18px;color:rgba(0,0,0,1);text-align: center;height: 50px;line-height: 50px;}
 
 .shopList{width: 375px;overflow: hidden;}
 .title{height: 20px;line-height: 20px; padding:15px 8px;}
   .name{font-size: 18px;color: #000;}
-  .showMore{display: inline-block; font-size: 14px;color:rgba(225,70,59,1);float: right;}
 
 .proList{padding-left: 8px;width: 385px;overflow: hidden; height:486px; }
 .proList a{display: block;width: 174px;height: 234px;border: 1px solid #FFEFEFEF;overflow: hidden;position: relative;float: left;margin-right: 8px;margin-bottom: 10px;}

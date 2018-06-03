@@ -1,13 +1,13 @@
 <template>
   <!--产品详情筛选-->
-  <div class="productDetailScreenl">
+  <div class="productDetailScreen">
     <!--如果没有登录要提示登录框-->
-  <div>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'productDetailScreenl',
+  name: 'productDetailScreen',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'

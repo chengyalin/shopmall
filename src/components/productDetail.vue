@@ -1,6 +1,14 @@
 <template>
   <!--产品详情-->
   <div class="productDetail">
+    <div class="detailBanner">
+      <van-swipe :autoplay="3000" vertical>
+        <van-swipe-item>1</van-swipe-item>
+        <van-swipe-item>2</van-swipe-item>
+        <van-swipe-item>3</van-swipe-item>
+        <van-swipe-item>4</van-swipe-item>
+      </van-swipe>
+    </div>
   </div>
 </template>
 

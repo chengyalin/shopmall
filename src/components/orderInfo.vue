@@ -1,10 +1,12 @@
 <template>
-  <div class="zzz">
+  <!--订单信息界面-->
+  <div class="orderInfo">
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'zzz',
+  name: 'orderInfo',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'

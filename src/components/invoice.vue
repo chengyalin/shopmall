@@ -2,7 +2,7 @@
   <!--开发票界面-->
   <div class="invoice">
     <!--企业发票和个人发票-->
-  <div>
+  </div>
 </template>
 
 <script>
