@@ -21,8 +21,8 @@ export default new Router({
       component: indexPage
     },
     {
-      path: '/indexPageList',
-      name: 'indexPageList',
+      path: '/indexPageMore',
+      name: 'indexPageMore',
       component: indexPageList
     },
     {

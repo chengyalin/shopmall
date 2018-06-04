@@ -84,7 +84,7 @@ export default {
 .title{height: 20px;line-height: 20px; padding:15px 8px;}
   .name{font-size: 18px;color: #000;}
 
-.proList{padding-left: 8px;width: 385px;overflow: hidden; height:486px; }
+.proList{padding-left: 8px;width: 385px;overflow: hidden; }
 .proList a{display: block;width: 174px;height: 234px;border: 1px solid #FFEFEFEF;overflow: hidden;position: relative;float: left;margin-right: 8px;margin-bottom: 10px;}
 .proList i{display: block; position: absolute;top:1px;left: 1px;font-size: 10px;color: #fff;text-align: center;font-style: normal;
   width:70px;
