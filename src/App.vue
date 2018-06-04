@@ -25,8 +25,8 @@ export default {
     return {
       active: 0,
       icon: {
-        normal: '//img.yzcdn.cn/1.png',
-        active: '//img.yzcdn.cn/2.png'
+        normal: '/static/img/navselfGray.png',
+        active: '/static/img/navself.png'
       }
     }
   }

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import indexPage from '@/components/indexPage'
-import indexPageList from '@/components/indexPageList'
+import indexPageMore from '@/components/indexPageMore'
 import productDetail from '@/components/productDetail'
 import productDetailScreen from '@/components/productDetailScreen'
 import orderInfo from '@/components/orderInfo'
@@ -9,6 +9,7 @@ import addAddress from '@/components/addAddress'
 import invoice from '@/components/invoice'
 import selfOrder from '@/components/selfOrder'
 import selfOrderDetail from '@/components/selfOrderDetail'
+import screening from '@/components/screening'
 
 
 Vue.use(Router)
@@ -23,7 +24,7 @@ export default new Router({
     {
       path: '/indexPageMore',
       name: 'indexPageMore',
-      component: indexPageList
+      component: indexPageMore
     },
     {
       path: '/productDetail',
@@ -59,6 +60,11 @@ export default new Router({
       path: '/selfOrderDetail',
       name: 'selfOrderDetail',
       component: selfOrderDetail
+    },
+    {
+      path: '/screening',
+      name: 'screening',
+      component: screening
     }
   ]
 })
