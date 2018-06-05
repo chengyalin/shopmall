@@ -5,8 +5,8 @@
 
       <div class="radioSlect">
         <van-radio-group v-model="radio">
-          <van-radio name="1">不需要发票</van-radio>
-          <van-radio name="2">需要发票</van-radio>
+          <van-radio class="radioStyle" name="1">不需要发票</van-radio>
+          <van-radio class="radioStyle" name="2">需要发票</van-radio>
         </van-radio-group>
       </div>
 
@@ -15,7 +15,7 @@
           <p><span :class="{'active': isActive}" @click="handleSelf">个人发票</span></p>
       </div>
       <!--企业发票-->
-      <div class="componyInvoice" v-if="showComponyInvoice">
+      <div class="componyInvoice">
         <div class="van-cell van-hairline van-field">
           <div class="van-cell__title"><span>输入抬头</span></div>
           <div class="van-cell__value"><input type="text" maxlength="15" placeholder="填写准确的纳税人识别号" class="van-field__control"></div>
@@ -40,7 +40,7 @@
         </div>
       </div>
       <!--个人发票-->
-      <div class="selfInvoice" v-else>
+      <div class="selfInvoice">
         <div class="van-cell van-hairline van-field">
           <div class="van-cell__title"><span>电话号码</span></div>
           <div class="van-cell__value"><input type="text" maxlength="15" placeholder="输入电话号码" class="van-field__control"></div>
@@ -68,8 +68,7 @@ export default {
   data () {
     return {
       radio: '1',
-      isActive: true,
-      showComponyInvoice:true
+      isActive: true
     }
   },
   methods: {
@@ -91,8 +90,10 @@ export default {
 
 .comapnyAndSelf{border-bottom: 1px solid #e5e5e5;height: 38px;line-height: 38px;}
 .comapnyAndSelf p{display: inline-block; font-size:14px;color:rgba(0,0,0,1);width: 50%;float: left;text-align: center;}
-.comapnyAndSelf span.active{border-bottom: 2px solid rgba(225,70,59,1);padding:0 10px 8px;}
+.comapnyAndSelf span.active{border-bottom: 2px solid rgba(225,70,59,1);padding:0 10px 10px;}
+
+.radioSlect{padding: 5px 10px;}
+.radioStyle{line-height: 20px;padding: 10px 0;}
 
 .footerBtn{width: 100%; position: fixed;bottom: 0;left: 0;}
-.footerBtn .van-button--bottom-action{background-color: rgba(225,70,59,1);}
 </style>

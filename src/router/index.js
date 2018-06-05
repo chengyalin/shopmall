@@ -7,6 +7,7 @@ import productDetailScreen from '@/components/productDetailScreen'
 import orderInfo from '@/components/orderInfo'
 import addAddress from '@/components/addAddress'
 import invoice from '@/components/invoice'
+import InstallationAddress from '@/components/InstallationAddress'
 import selfOrder from '@/components/selfOrder'
 import selfOrderDetail from '@/components/selfOrderDetail'
 import screening from '@/components/screening'
@@ -50,6 +51,11 @@ export default new Router({
       path: '/invoice',
       name: 'invoice',
       component: invoice
+    },
+    {
+      path: '/InstallationAddress',
+      name: 'InstallationAddress',
+      component: InstallationAddress
     },
     {
       path: '/selfOrder',
