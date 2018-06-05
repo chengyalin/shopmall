@@ -1,12 +1,18 @@
 <template>
     <div class="headBar">
-      <div class="navBar"><img src="/static/img/goBack.png" alt="" class="goBack"><solt class="navName"></solt></div>
+      <div class="navBar"><img src="/static/img/goBack.png" alt="" class="goBack"><p class="navName">{{title}}</p></div>
     </div>
 </template>
 
 <script>
 export default {
   name: 'footerBar',
+  props:{
+  	title:{
+  		type:String,
+  		defalut: ''
+  	}
+  },
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'

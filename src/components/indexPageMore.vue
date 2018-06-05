@@ -2,7 +2,7 @@
   <!--首页-->
   <div class="indexPageList">
     <!--<div class="navBar"><img src="/static/img/goBack.png" alt="" class="goBack"> <p class="navName">优点商城</p></div>-->
-    <headBar>11</headBar>
+    <headBar title="111"></headBar>
     <!--产品列表-->
     <div class="shopList">
       <div class="productPlate">
@@ -68,11 +68,11 @@ export default {
   data () {
     return {
       LoadingOk: true,
-      navName:xx
+      navName:'xx'
     }
   },
   created () {
-    this.fetchSlideList()
+   // this.fetchSlideList()
   },
   methods: {
 
