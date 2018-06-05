@@ -11,6 +11,8 @@ import InstallationAddress from '@/components/InstallationAddress'
 import selfOrder from '@/components/selfOrder'
 import selfOrderDetail from '@/components/selfOrderDetail'
 import screening from '@/components/screening'
+import footerBar from '@/components/footerBar'
+import headBar from '@/components/headBar'
 
 
 Vue.use(Router)
@@ -71,6 +73,16 @@ export default new Router({
       path: '/screening',
       name: 'screening',
       component: screening
+    },
+    {
+      path: '/footerBar',
+      name: 'footerBar',
+      component: footerBar
+    },
+    {
+      path: '/headBar',
+      name: 'headBar',
+      component: headBar
     }
   ]
 })

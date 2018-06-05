@@ -1,7 +1,8 @@
 <template>
   <!--首页-->
   <div class="indexPageList">
-    <div class="navBar"><img src="/static/img/goBack.png" alt="" class="goBack"> <p class="navName">优点商城</p></div>
+    <!--<div class="navBar"><img src="/static/img/goBack.png" alt="" class="goBack"> <p class="navName">优点商城</p></div>-->
+    <headBar>11</headBar>
     <!--产品列表-->
     <div class="shopList">
       <div class="productPlate">
@@ -58,11 +59,16 @@
 </template>
 
 <script>
+import headBar from './headBar'
 export default {
   name: 'indexPageList',
+  components: {
+    headBar
+  },
   data () {
     return {
-      LoadingOk: true
+      LoadingOk: true,
+      navName:xx
     }
   },
   created () {
@@ -98,5 +104,5 @@ export default {
   .info{font-size: 12px;color: rgba(155,155,155,1);;}
   .price{font-size: 15px;color: rgba(245,4,34,1);}
 
-.loadPosition{position: fixed;top:48%;left: 48%;}
+.loadPosition{position: fixed;top:50%;left: 50%;transform: translate(-50%,-50%);}
 </style>

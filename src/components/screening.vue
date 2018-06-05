@@ -51,11 +51,16 @@
         </div>
       </div>
     </div>
+    <footerBar></footerBar>
   </div>
 </template>
 <script>
+import footerBar from './footerBar'
 export default {
   name: 'screening',
+  components: {
+    footerBar
+  },
   data () {
     return {
 

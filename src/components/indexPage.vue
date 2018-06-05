@@ -59,14 +59,20 @@
         </div>
       </div>
     </div>
+    <footerBar></footerBar>
     <!--加载-->
     <van-loading v-if="LoadingOk" type="spinner" color="black" class="loadPosition" />
   </div>
 </template>
 
 <script>
+import footerBar from './footerBar'
+
 export default {
   name: 'indexPage',
+  components: {
+    footerBar
+  },
   data () {
     return {
       sildeList: [],
@@ -124,5 +130,6 @@ export default {
   .info{font-size: 12px;color: rgba(155,155,155,1);;}
   .price{font-size: 15px;color: rgba(245,4,34,1);}
 
-.loadPosition{position: fixed;top:48%;left: 48%;}
+.indexPage{padding-bottom: 50px;}
+.loadPosition{position: fixed;top:50%;left: 50%;transform: translate(-50%,-50%);}
 </style>

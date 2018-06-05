@@ -51,11 +51,16 @@
           </li>
         </ul>
     </div>
+    <footerBar></footerBar>
   </div>
 </template>
 <script>
+import footerBar from './footerBar'
 export default {
   name: 'selfOrder',
+  components: {
+    footerBar
+  },
   data () {
     return {
       showMyOrder: false
