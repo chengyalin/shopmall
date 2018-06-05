@@ -12,7 +12,7 @@
     <!--产品列表-->
     <div class="shopList">
       <div class="productPlate">
-        <h2 class="title"><span class="name">明星产品</span><router-link class="showMore" to="/indexPageList" >更多 ></router-link></h2>
+        <h2 class="title"><span class="name">明星产品</span><router-link class="showMore" to="/indexPageMore" >更多 ></router-link></h2>
         <div class="proList">
           <a href="">
             <i>折扣产品</i>
@@ -111,7 +111,7 @@ export default {
   .showMore{display: inline-block; font-size: 14px;color:rgba(225,70,59,1);float: right;}
 
 .proList{padding-left: 8px;width: 385px;overflow: hidden; height:486px; }
-.proList a{display: block;width: 174px;height: 234px;border: 1px solid #FFEFEFEF;overflow: hidden;position: relative;float: left;margin-right: 8px;margin-bottom: 10px;}
+.proList a{display: block;width: 174px;height: 234px;border: 1px solid #FFEFEF;overflow: hidden;position: relative;float: left;margin-right: 8px;margin-bottom: 10px;}
 .proList i{display: block; position: absolute;top:1px;left: 1px;font-size: 10px;color: #fff;text-align: center;font-style: normal;
   width:70px;
   height:20px;

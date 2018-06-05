@@ -35,6 +35,6 @@ export default {
 
 <style>
   *{margin: 0;padding: 0;}
-  .footerNavBar{position: fixed;width: 100%;height: 50px;background-color: #fff;left: 0;bottom: 0;}
+  .footerNavBar{position: fixed;width: 100%;height: 50px;background-color: #fff;left: 0;bottom: 0;z-index: 999;}
 
 </style>
