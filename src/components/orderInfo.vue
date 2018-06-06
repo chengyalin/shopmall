@@ -1,7 +1,7 @@
 <template>
   <!--订单信息界面-->
   <div class="orderInfo">
-    <div class="navBar"><img src="/static/img/goBack.png" alt="" class="goBack"> <p class="navName">订单信息</p></div>
+    <headBar title="订单信息"></headBar>
     <div class="myShopOrder">
       <div class="productOrderList">
         <img src="../assets/logo.png" alt="" class="proLeft">
@@ -62,8 +62,12 @@
 </template>
 
 <script>
+import headBar from './headBar'
 export default {
   name: 'orderInfo',
+  components: {
+    headBar
+  },
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'

@@ -1,5 +1,6 @@
 <template>
   <div class="selfOrder">
+    <headBar title="个人订单"></headBar>
     <div class="userInfo">
       <img src="../assets/logo.png" alt="" class="userlLogo">
       <span class="userPhone">111111111111</span>
@@ -16,7 +17,7 @@
     <div class="myOrderList" v-else>
         <ul>
           <li>
-            <div class="myShopOrder">
+            <div class="myShopOrder" @click="selfOrderDetailGo">
               <p class="orderNum">订单号：10029039209 <span class="state">配送中</span></p>
               <div class="productOrderList">
                 <img src="../assets/logo.png" alt="" class="proLeft">
@@ -32,23 +33,6 @@
               </div>
             </div>
           </li>
-          <li>
-            <div class="myShopOrder">
-              <p class="orderNum">订单号：10029039209 <span class="state">配送中</span></p>
-              <div class="productOrderList">
-                <img src="../assets/logo.png" alt="" class="proLeft">
-                <div class="proCenter">
-                  <p class="name">优点智能锁 E1</p>
-                  <p class="proInfo">蓝牙版 共1件商品</p>
-                  <p class="dataTime">2018.02.04 19:48</p>
-                </div>
-                <div class="proRight">
-                  <p class="oldPrice">￥2699</p>
-                  <p class="price">￥2699</p>
-                </div>
-              </div>
-            </div>
-          </li>
         </ul>
     </div>
     <footerBar></footerBar>
@@ -56,14 +40,21 @@
 </template>
 <script>
 import footerBar from './footerBar'
+import headBar from './headBar'
 export default {
   name: 'selfOrder',
   components: {
+    headBar,
     footerBar
   },
   data () {
     return {
       showMyOrder: false
+    }
+  },
+  methods: {
+    selfOrderDetailGo () {
+      this.$router.push({name: 'selfOrderDetail'})
     }
   }
 }

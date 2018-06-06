@@ -1,7 +1,7 @@
 <template>
   <!--个人的订单详情-->
   <div class="selfOrderDetail">
-    <div class="navBar"><img src="/static/img/goBack.png" alt="" class="goBack"> <p class="navName">订单详情</p></div>
+    <headBar title="订单详情"></headBar>
     <p class="orderNum">订单号：10029039209 </p>
     <div class="stepBar">
       <van-steps :active="active">
@@ -33,8 +33,12 @@
 </template>
 
 <script>
+  import headBar from './headBar'
 export default {
   name: 'selfOrderDetail',
+  components: {
+    headBar
+  },
   data () {
     return {
       active: 1

@@ -1,6 +1,7 @@
 <template>
   <!--刷选-->
   <div class="screening">
+    <headBar title="优点商城"></headBar>
     <div class="leftBar">
       <p class="nameNav active"><span>新品</span></p>
       <p class="nameNav"><span>新品</span></p>
@@ -55,10 +56,12 @@
   </div>
 </template>
 <script>
+import headBar from './headBar'
 import footerBar from './footerBar'
 export default {
   name: 'screening',
   components: {
+    headBar,
     footerBar
   },
   data () {
@@ -69,8 +72,8 @@ export default {
 }
 </script>
 <style scoped>
-.leftBar{height:calc(100vh - 50px); width: 75px;position: fixed;top:0;left: 0;border-right: 1px solid rgba(247,247,247,1);}
-  .nameNav{width: 75px;height: 20px;line-height: 20px;margin: 20px auto;text-align: center;}
+.leftBar{height:calc(100vh - 100px); width: 75px;position: fixed;top:50px;left: 0;border-right: 1px solid rgba(247,247,247,1);}
+  .nameNav{width: 75px;height: 20px;line-height: 20px;margin: 30px auto;text-align: center;}
   .nameNav.active{border-left: 4px solid rgba(225,70,59,1);width: 71px;}
   .nameNav.active span{color:rgba(0,0,0,1);}
   .nameNav span{font-size: 16px;color:rgba(0,0,0,1);}

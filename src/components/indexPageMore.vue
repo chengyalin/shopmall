@@ -7,48 +7,13 @@
       <div class="productPlate">
         <h2 class="title"><span class="name">明星产品</span></h2>
         <div class="proList">
-          <a href="">
+          <router-link tag="a" :to="{path:'/productDetail',query: {productId: item.product_id}}" v-for="(item,index) in productList" :key="index">
             <i>折扣产品</i>
-            <img  src="../assets/logo.png" alt="">
-            <p class="name">优点智能锁 E1</p>
-            <p class="info">ZigBee联网锁，安全守候</p>
-            <p class="price">￥2699</p>
-          </a>
-          <a href="">
-            <i>折扣产品</i>
-            <img  src="../assets/logo.png" alt="">
-            <p class="name">优点智能锁 E1</p>
-            <p class="info">ZigBee联网锁，安全守候</p>
-            <p class="price">￥2699</p>
-          </a>
-          <a href="">
-            <i>折扣产品</i>
-            <img  src="../assets/logo.png" alt="">
-            <p class="name">优点智能锁 E1</p>
-            <p class="info">ZigBee联网锁，安全守候</p>
-            <p class="price">￥2699</p>
-          </a>
-          <a href="">
-            <i>折扣产品</i>
-            <img  src="../assets/logo.png" alt="">
-            <p class="name">优点智能锁 E1</p>
-            <p class="info">ZigBee联网锁，安全守候</p>
-            <p class="price">￥2699</p>
-          </a>
-          <a href="">
-            <i>折扣产品</i>
-            <img  src="../assets/logo.png" alt="">
-            <p class="name">优点智能锁 E1</p>
-            <p class="info">ZigBee联网锁，安全守候</p>
-            <p class="price">￥2699</p>
-          </a>
-          <a href="">
-            <i>折扣产品</i>
-            <img  src="../assets/logo.png" alt="">
-            <p class="name">优点智能锁 E1</p>
-            <p class="info">ZigBee联网锁，安全守候</p>
-            <p class="price">￥2699</p>
-          </a>
+            <img :src="'http://tianyi.zhongkakeji.com/media/' + item.image" alt="">
+            <p class="name">{{item.title}}</p>
+            <p class="info">{{item.pre_info}}</p>
+            <p class="price">{{item.price}}</p>
+          </router-link>
         </div>
       </div>
     </div>
@@ -59,6 +24,7 @@
 
 <script>
 import headBar from './headBar'
+import { productList } from 'api/product'
 export default {
   name: 'indexPageList',
   components: {
@@ -67,14 +33,26 @@ export default {
   data () {
     return {
       LoadingOk: true,
-      navName:'xx'
+      productList: []
     }
   },
   created () {
    // this.fetchSlideList()
   },
-  methods: {
+  mounted() {
+    this.getProductList()
 
+  },
+  methods: {
+    getProductList() {
+      productList().then(res => {
+        console.log(res)
+        if(res.data.ok) {
+          this.productList = res.data.data
+          this.LoadingOk = false
+        }
+      })
+    }
   }
 }
 </script>
@@ -86,7 +64,7 @@ export default {
   .name{font-size: 18px;color: #000;}
 
 .proList{padding-left: 8px;width: 385px;overflow: hidden; }
-.proList a{display: block;width: 174px;height: 234px;border: 1px solid #FFEFEFEF;overflow: hidden;position: relative;float: left;margin-right: 8px;margin-bottom: 10px;}
+.proList a{display: block;width: 164px;height: 234px;border: 1px solid #FFEFEF;overflow: hidden;position: relative;float: left;margin-right: 8px;margin-bottom: 10px;padding: 0 5px;}
 .proList i{display: block; position: absolute;top:1px;left: 1px;font-size: 10px;color: #fff;text-align: center;font-style: normal;
   width:70px;
   height:20px;
@@ -96,7 +74,7 @@ export default {
 .proList img{display:block;width: auto;max-height: 140px;margin: 0 auto;margin-bottom: 10px;}
 .proList p{line-height: 24px;}
   .name{font-size: 15px;color: #000;}
-  .info{font-size: 12px;color: rgba(155,155,155,1);;}
+  .info{font-size: 12px;color: rgba(155,155,155,1);height: 30px;line-height: 30px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
   .price{font-size: 15px;color: rgba(245,4,34,1);}
 
 .loadPosition{position: fixed;top:50%;left: 50%;transform: translate(-50%,-50%);}
