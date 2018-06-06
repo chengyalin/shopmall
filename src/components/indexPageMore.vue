@@ -1,8 +1,7 @@
 <template>
   <!--首页-->
   <div class="indexPageList">
-    <!--<div class="navBar"><img src="/static/img/goBack.png" alt="" class="goBack"> <p class="navName">优点商城</p></div>-->
-    <headBar title="查看更多"></headBar>
+    <headBar title="优点商城"></headBar>
     <!--产品列表-->
     <div class="shopList">
       <div class="productPlate">
@@ -82,10 +81,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.navBar{height: 50px;line-height: 50px;background:rgba(247,247,247,1);}
-.goBack{display: block; width: 8px;height: 14px;padding: 4px;position: absolute;top: 16px;left: 20px;}
-.navName{font-size: 18px;color:rgba(0,0,0,1);text-align: center;height: 50px;line-height: 50px;}
-
 .shopList{width: 375px;overflow: hidden;}
 .title{height: 20px;line-height: 20px; padding:15px 8px;}
   .name{font-size: 18px;color: #000;}

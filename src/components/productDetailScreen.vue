@@ -1,7 +1,7 @@
 <template>
   <!--产品详情筛选-->
   <div class="productDetailScreen">
-    <div class="navBar"><img src="/static/img/goBack.png" alt="" class="goBack"> <p class="navName">选择商品</p></div>
+    <headBar title="选择商品"></headBar>
     <div class="myShopOrder">
       <div class="productOrderList">
         <img src="../assets/logo.png" alt="" class="proLeft">
@@ -34,7 +34,11 @@
       </div>
       <div class="chooseMain">
         <h2 class="name">选择数量</h2>
-
+        <div class="chooseCountNum">
+          <span class="reduceNum">-</span>
+          <input type="text" class="showNumValue" value="1" readonly>
+          <span class="addNum">+</span>
+        </div>
       </div>
     </div>
 
@@ -46,7 +50,7 @@
       </van-row>
     </div>
     <!--如果没有登录要提示登录框-->
-    <div class="loginBox">
+    <div class="loginBox" v-show="loginBoxShow">
       <div class="mask"></div>
       <div class="loginMain">
         <div class="loginBar">
@@ -75,11 +79,15 @@
 </template>
 
 <script>
+import headBar from './headBar'
 export default {
   name: 'productDetailScreen',
+  components: {
+    headBar
+  },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      loginBoxShow: false
     }
   }
 }
@@ -112,6 +120,12 @@ export default {
  .chooseOne .gold{background-color: #F5D168;}
  .chooseOne em{font-style: normal}
  .chooseOne.active{border:1px solid rgba(225,70,59,1);}
+
+/* 加减数量*/
+ .chooseCountNum{width: 130px;height: 28px;line-height: 28px;font-size: 16px;text-align: center;border:1px solid rgba(186,186,186,1);border-radius: 5px;}
+ .reduceNum{display: inline-block; width: 44px;float: left;border-right:1px solid rgba(186,186,186,1);}
+ .showNumValue{width: 40px;border: none;float: left;text-align: center;}
+ .addNum{display: inline-block; width: 44px;float: right;border-left:1px solid rgba(186,186,186,1);}
 
  .loginBox{}
  .loginBox .mask{width: 100%;height: 100%;background-color: #000;opacity: .7;position: absolute;top:0;left:0;z-index: 99;}

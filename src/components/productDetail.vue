@@ -1,7 +1,7 @@
 <template>
   <!--产品详情-->
   <div class="productDetail">
-    <div class="navBar"><img src="/static/img/goBack.png" alt="" class="goBack"> <p class="navName">订单详情</p></div>
+    <headBar title="订单详情"></headBar>
     <!--banner图-->
     <div class="bannerBox">
       <van-swipe class="bannerImgBox" :autoplay="6000" vertical >
@@ -37,8 +37,12 @@
 </template>
 
 <script>
+import headBar from './headBar'
 export default {
   name: 'productDetail',
+  components: {
+    headBar
+  },
   data () {
     return {
       sildeList: [],
