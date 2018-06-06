@@ -2,7 +2,7 @@
   <!--首页-->
   <div class="indexPageList">
     <!--<div class="navBar"><img src="/static/img/goBack.png" alt="" class="goBack"> <p class="navName">优点商城</p></div>-->
-    <headBar title="111"></headBar>
+    <headBar title="查看更多"></headBar>
     <!--产品列表-->
     <div class="shopList">
       <div class="productPlate">
