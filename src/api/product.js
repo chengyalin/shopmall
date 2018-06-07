@@ -23,3 +23,7 @@ export function productDetail(options){
 
   })
 }
+
+/**
+ * 产品筛选和首页产品列表一个接口
+ */

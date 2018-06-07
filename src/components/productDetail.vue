@@ -1,6 +1,8 @@
 <template>
   <!--产品详情-->
   <div class="productDetail">
+
+
     <headBar title="订单详情"></headBar>
     <!--banner图-->
     <div class="bannerBox">
@@ -15,22 +17,33 @@
       <p class="detailDesc">{{detail.descp}}</p>
       <p class="price">￥{{detail.price}}</p>
     </div>
-    <div class="selectPro">
+    <div class="selectPro"  @click="goGood">
       <span class="chooseWord">已选</span>
       <span class="selctInfo">还没有选择商品详细的类型</span>
-      <router-link to="/productDetailScreen"><img src="/static/img/goforward.png" alt="" class="goChoose"></router-link>
+      <img src="/static/img/goforward.png" alt="" class="goChoose">
     </div>
     <div class="proDdescripton">
-      <p><span :class="{'active': isActive}">概 述</span></p>
-      <p><span>参数</span></p>
+      <p @click="tabChange(index)"  v-for="(item,index) in tabArray" :key="index"><span :class="{'active': isActive === index}">{{item}}</span></p>
+    </div>
+    <div class="proDdescriptonInfo">
+      <!--概述-->
+      <!--参数-->
+      <div class="tabContent" v-show="isActive === 0"><img v-lazy="'http://tianyi.zhongkakeji.com/media/' + detail.detail_info" alt="" class="introPro"></div>
+      <div class="tabContent" v-show="isActive === 1"><img v-lazy="'http://tianyi.zhongkakeji.com/media/' + detail.parameter_image"  alt="" class="introPro"></div>
+
     </div>
     <div class="footerBtn" @click="handleBuy">
       <van-row>
-        <van-col span="12">
+        <van-col span="24">
           <van-button bottom-action>立刻购买</van-button>
         </van-col>
       </van-row>
     </div>
+
+    <!--商品选择-->
+    <van-popup v-model="goodShow" position="right" :overlay="false" class="goods-box">
+      <product-detail-screen :data="detail"></product-detail-screen>
+    </van-popup>
     <!--加载-->
     <van-loading v-if="LoadingOk" type="spinner" color="black" class="loadPosition" />
     <!--点击购买，如果没有选择商品则提示选择商品-->
@@ -40,28 +53,39 @@
 <script>
   import headBar from './headBar'
   import { productDetail } from 'api/product'
+  import ProductDetailScreen from 'components/productDetailScreen'
 
   export default {
     name: 'productDetail',
     components:{
-      headBar
+      headBar,
+      ProductDetailScreen
     },
     data () {
       return {
+        tabArray:['概 述','参数'],
         sildeList: [],
         LoadingOk: true,
-        isActive: true,
+        isActive: 0,
         detail:{},
-        loginBoxShow:false
+        loginBoxShow:false,
+        goodShow: false,
       }
     },
     created () {
-      this.fetchSlideList()
+
     },
-    mounted(){
+    mounted () {
       this.getDetail()
     },
     methods: {
+      goGood(){
+        this.goodShow = true;
+      },
+      tabChange (index) {
+        this.isActive = index
+
+      },
       //从首页商品列表跳转的获取产品id
       getDetail(){
         let options = {
@@ -77,9 +101,9 @@
 
       handleBuy () {
         //点击购买，如果没有选择商品则提示选择商品
-        this.$toast('没有选择商品详细的类型');
+        //this.$toast('没有选择商品详细的类型')
         //如果选择了商品就跳到orderInfo界面
-
+        this.$router.push({name: 'orderInfo'})
       }
     }
   }
@@ -87,10 +111,6 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .navBar{height: 50px;line-height: 50px;background:rgba(247,247,247,1);}
-  .goBack{display: block; width: 8px;height: 14px;padding: 4px;position: absolute;top: 16px;left: 20px;}
-  .navName{font-size: 18px;color:rgba(0,0,0,1);text-align: center;height: 50px;line-height1: 50px;}
-
   .bannerBox{width:100%; height: 210px;margin: 0 auto;}
   .bannerImgBox{display: block;width:100%; height: 210px;}
   .bannerImgBox img{width:100%;height: 210px;}
@@ -109,26 +129,12 @@
   .proDdescripton p{display: inline-block; font-size:14px;color:rgba(0,0,0,1);width: 50%;float: left;text-align: center;}
   .proDdescripton span.active{border-bottom: 2px solid rgba(225,70,59,1);padding:0 10px 10px;}
 
-  .loginBox{}
-  .loginBox .mask{width: 100%;height: 100%;background-color: #000;opacity: .7;position: absolute;top:0;left:0;z-index: 99;}
-  .loginMain{width: 300px;border-radius: 5px; background-color: #fff; position: fixed;top: 50%;left: 50%;transform:translate(-50%,-50%);z-index: 100;}
-  .loginBar{}
-  .goBackIcon{display: block; width: 8px;height: 14px;padding: 4px;position: absolute;top: 16px;left: 20px;}
-  .navName{font-size: 18px;color:rgba(0,0,0,1);text-align: center;height: 50px;line-height: 50px;}
-  .close{display: block; width: 14px;height: 14px;padding: 4px;position: absolute;top: 16px;right: 20px;}
-  .loginWrite{padding: 5px 20px 70px;}
-  .telNum{display: block;border: none; border-bottom:1px solid rgba(240,240,240,1);width: 240px;padding: 10px;}
-  .errorHint{color: red;font-size: 14px;line-height: 30px;}
-  .loginBtn{border: none;width: 300px;border-radius:0 0 5px 5px; height: 50px;color: #fff; background:rgba(225,70,59,1);position: absolute;left: 0;bottom: 0;}
-
-  .sendWord{color: #797979;text-align: center;margin: 0 auto 10px;}
-  .verification{display: inline-block;border: none; border-bottom:1px solid rgba(240,240,240,1);width: 150px;padding: 10px;}
-  .send{display: inline-block; border:1px solid rgba(225,70,59,1);font-size: 14px;color: #E1463B;padding: 5px 8px;}
-  .countdown{float: right;line-height: 50px;margin-right: 27px;}
+  .introPro{max-width: 100%;display: block;}
 
   .footerBtn{width: 100%; position: fixed;bottom: 0;left: 0;}
   .loadPosition{position: fixed;
     top:50%;
     left:50%;
     transform:translate(-50%,-50%);}
+  .goods-box{width: 100%;height: 100%;}
 </style>

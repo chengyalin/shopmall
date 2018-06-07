@@ -1,20 +1,19 @@
 <template>
     <!--添加宽带安装地址-->
     <div class="InstallationAddress">
-      <div class="navBar"><img src="/static/img/goBack.png" alt="" class="goBack"> <p class="navName">开具发票</p></div>
-
+      <headBar title="填写宽带安装地址"></headBar>
       <div class="radioSlect">
         <van-radio-group v-model="radio">
-          <van-radio class="radioStyle" name="1">买锁免费赠送宽带</van-radio>
-          <van-radio class="radioStyle" name="2">不需要免费宽带</van-radio>
+          <van-radio class="radioStyle" name="1" @click="writeAddrShow">买锁免费赠送宽带</van-radio>
+          <van-radio class="radioStyle" name="2" @click="writeAddrHide">不需要免费宽带</van-radio>
         </van-radio-group>
       </div>
 
-      <div class="comapnyAndSelf">
+      <div class="comapnyAndSelf" v-show="writeAddr">
           <p><span :class="{'active': isActive}" >填写宽带安装地址</span></p>
       </div>
       <!--企业发票-->
-      <div class="componyInvoice">
+      <div class="componyInvoice" v-show="writeAddr">
         <div class="van-cell van-hairline van-field">
           <div class="van-cell__title"><span>用户姓名</span></div>
           <div class="van-cell__value"><input type="text" maxlength="15" placeholder="请输入用户姓名" class="van-field__control"></div>
@@ -53,7 +52,7 @@
       </div>
       <div class="footerBtn">
         <van-row>
-          <van-col span="12">
+          <van-col span="24">
             <van-button bottom-action>保存</van-button>
           </van-col>
         </van-row>
@@ -62,26 +61,33 @@
 </template>
 
 <script>
+  import headBar from './headBar'
 export default {
   name: 'InstallationAddress',
+  components :{
+    headBar
+  },
   data () {
     return {
       radio: '1',
-      isActive: true
+      isActive: true,
+      writeAddr:true
     }
   },
   methods: {
+    writeAddrHide () {
+      this.writeAddr = false
+    },
+    writeAddrShow () {
+      this.writeAddr = true
 
+    }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.navBar{height: 50px;line-height: 50px;background:rgba(247,247,247,1);}
-.goBack{display: block; width: 8px;height: 14px;padding: 4px;position: absolute;top: 16px;left: 20px;}
-.navName{font-size: 18px;color:rgba(0,0,0,1);text-align: center;height: 50px;line-height: 50px;}
-
 .comapnyAndSelf{border-bottom: 1px solid #e5e5e5;height: 38px;line-height: 38px;}
 .comapnyAndSelf p{display: inline-block; font-size:14px;color:rgba(0,0,0,1);width: 100%;float: left;text-align: center;}
 .comapnyAndSelf span.active{border-bottom: 2px solid rgba(225,70,59,1);padding:0 10px 10px;}

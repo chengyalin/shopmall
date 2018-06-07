@@ -17,7 +17,7 @@ import Router from 'vue-router'
 const indexPage = resolve => require(['components/indexPage.vue'], resolve)
 const indexPageMore = resolve => require(['components/indexPageMore.vue'], resolve)
 const productDetail = resolve => require(['components/productDetail.vue'], resolve)
-const productDetailScreen = resolve => require(['components/productDetailScreen.vue'], resolve)
+//const productDetailScreen = resolve => require(['components/productDetailScreen.vue'], resolve)
 const orderInfo = resolve => require(['components/orderInfo.vue'], resolve)
 const addAddress = resolve => require(['components/addAddress.vue'], resolve)
 const invoice = resolve => require(['components/invoice.vue'], resolve);
@@ -31,71 +31,74 @@ const headBar = resolve => require(['components/headBar.vue'], resolve)
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'indexPage',
-      component: indexPage
-    },
-    {
-      path: '/indexPageMore',
-      name: 'indexPageMore',
-      component: indexPageMore
-    },
-    {
-      path: '/productDetail',
-      name: 'productDetail',
-      component: productDetail
-    },
-    {
-      path: '/productDetailScreen',
-      name: 'productDetailScreen',
-      component: productDetailScreen
-    },
-    {
-      path: '/orderInfo',
-      name: 'orderInfo',
-      component: orderInfo
-    },
-    {
-      path: '/addAddress',
-      name: 'addAddress',
-      component: addAddress
-    },
-    {
-      path: '/invoice',
-      name: 'invoice',
-      component: invoice
-    },
-    {
-      path: '/InstallationAddress',
-      name: 'InstallationAddress',
-      component: InstallationAddress
-    },
-    {
-      path: '/selfOrder',
-      name: 'selfOrder',
-      component: selfOrder
-    },
-    {
-      path: '/selfOrderDetail',
-      name: 'selfOrderDetail',
-      component: selfOrderDetail
-    },
-    {
-      path: '/screening',
-      name: 'screening',
-      component: screening
-    },
-    {
-      path: '/footerBar',
-      name: 'footerBar',
-      component: footerBar
-    },
-    {
-      path: '/headBar',
-      name: 'headBar',
-      component: headBar
-    }
-  ]
+	routes: [{
+			path: '/',
+			redirect: '/indexPage'
+		},
+		{
+			path: '/indexPage',
+			name: 'indexPage',
+			component: indexPage
+		},
+		{
+			path: '/indexPageMore',
+			name: 'indexPageMore',
+			component: indexPageMore
+		},
+		{
+			path: '/productDetail',
+			name: 'productDetail',
+			component: productDetail
+		},
+//		{
+//			path: '/productDetailScreen',
+//			name: 'productDetailScreen',
+//			component: productDetailScreen
+//		},
+		{
+			path: '/orderInfo',
+			name: 'orderInfo',
+			component: orderInfo
+		},
+		{
+			path: '/addAddress',
+			name: 'addAddress',
+			component: addAddress
+		},
+		{
+			path: '/invoice',
+			name: 'invoice',
+			component: invoice
+		},
+		{
+			path: '/InstallationAddress',
+			name: 'InstallationAddress',
+			component: InstallationAddress
+		},
+		{
+			path: '/selfOrder',
+			name: 'selfOrder',
+			component: selfOrder
+		},
+		{
+			path: '/selfOrderDetail',
+			name: 'selfOrderDetail',
+			component: selfOrderDetail
+		},
+		{
+			path: '/screening',
+			name: 'screening',
+			component: screening
+		},
+		{
+			path: '/footerBar',
+			name: 'footerBar',
+			component: footerBar
+		},
+		{
+			path: '/headBar',
+			name: 'headBar',
+			component: headBar
+		}
+	]
 })

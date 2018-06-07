@@ -4,13 +4,13 @@
     <headBar title="选择商品"></headBar>
     <div class="myShopOrder">
       <div class="productOrderList">
-        <img src="../assets/logo.png" alt="" class="proLeft">
+        <img :src="'http://tianyi.zhongkakeji.com/media/' + detail.image" alt="" class="proLeft">
         <div class="proCenter">
-          <p class="name">优点智能锁 E1</p>
+          <p class="name">{{detail.title}}</p>
         </div>
         <div class="proRight">
-          <p class="oldPrice">￥2699</p>
-          <p class="price">￥2699</p>
+          <p class="allPrice">￥{{detail.price}}</p>
+          <p class="price">￥{{detail.price}}</p>
         </div>
       </div>
     </div>
@@ -18,33 +18,48 @@
     <div class="chooseDesc">
       <div class="chooseMain">
         <h2 class="name">颜色选择</h2>
-        <span class="chooseOne active"><i class="colorRed"></i><em>红古铜</em></span>
-        <span class="chooseOne"><i class="silvery"></i><em>拉丝银</em></span>
-        <span class="chooseOne"><i class="gold"></i><em>琥珀金</em></span>
+        <span @click="tabChange(index)"
+              class="chooseOne"
+              :class="{'active': isActive === index}"
+              v-for="(item, index) in detail.color_info"
+              :key="index">
+          <i :style="{backgoundColor: item.value}"></i>
+          <em>{{item.title}}</em>
+        </span>
       </div>
       <div class="chooseMain">
         <h2 class="name">联网方式选择</h2>
-        <span class="chooseOne active"><em>蓝牙</em></span>
-        <span class="chooseOne"><em>蓝牙zzzzzzzzzz</em></span>
+        <span @click="tabChange(index)"
+              class="chooseOne"
+              :class="{'active': isActive === index}"
+              v-for="(item, index) in detail.mode_info"
+              :key="index">
+          <em>{{item.title}}</em>
+        </span>
       </div>
       <div class="chooseMain">
         <h2 class="name">门厚度选择</h2>
-        <span class="chooseOne active"><em>30mmm-60mmm</em></span>
-        <span class="chooseOne"><em>70mm-90mm</em></span>
+        <span @click="tabChange(index)"
+              class="chooseOne"
+              :class="{'active': isActive === index}"
+              v-for="(item, index) in detail.value_info"
+              :key="index">
+          <em>{{item.value}}</em>
+        </span>
       </div>
       <div class="chooseMain">
         <h2 class="name">选择数量</h2>
         <div class="chooseCountNum">
-          <span class="reduceNum" @click="minus">-</span>
-          <button type="button" class="showNumValue">{{ result }}</button>
-          <span class="addNum" @click="minus">+</span>
+          <span class="minMax minleft" @click='minus()' :class="{'addActive':isaddActive}">-</span>
+          <input type="text"  v-model='valueTextNum' class="valueText" readonly>
+          <span class="minMax maxright" @click='add()'>+</span>
         </div>
       </div>
     </div>
 
     <div class="footerBtn" @click="judgeLoginShow">
       <van-row>
-        <van-col span="12">
+        <van-col span="24">
           <van-button bottom-action>确定</van-button>
         </van-col>
       </van-row>
@@ -55,7 +70,7 @@
       <div class="loginMain">
         <div class="loginBar">
           <img src="/static/img/goBack.png" alt="" class="goBackIcon">
-          <p class="navName">订单详情</p>
+          <p class="navName">输入手机号</p>
           <img src="/static/img/close.png" alt="" class="close" @click="loginBoxHide">
         </div>
         <!--输入手机号-->
@@ -80,23 +95,64 @@
 
 <script>
   import headBar from './headBar'
+  import { productDetail } from 'api/product'
   export default {
-    name: 'productDetailScreen',
     components: {
       headBar
+    },
+    props:{
+      data:{
+        type: Object,
+        default: {},
+      }
     },
     data () {
       return {
         loginBoxShow: false,
-        result: 0
+        detail: {},
+        LoadingOk:true,
+        result: 0,
+        valueTextNum:1,
+        isaddActive: true,
+        isActive:true
       }
     },
+    mounted(){
+      this.getDetail()
+    },
+    computed: ('valueTextNum',function (newVal) {
+      if (newVal == 1) {
+        this.isaddActive = true
+      }
+    }),
     methods: {
-      minus () {
-        this.result--
+      getDetail () {
+        let options = {
+          product_id: this.$route.query.productId
+        }
+        productDetail(options).then(res =>{
+          if(res.data.ok){
+            this.detail = res.data.data
+            this.LoadingOk = false
+          }
+        })
       },
-      plus() {
-        this.result++
+      minus () {
+        if (this.valueTextNum < 2 ){
+          this.isaddActive = true
+          this.valueTextNum = 1
+        }else{
+          this.valueTextNum -= 1
+        }
+      },
+      add(){
+        this.valueTextNum += 1
+        if (this.valueTextNum>1) {
+          this.isaddActive = false
+        }
+      },
+      tabChange (index) {
+        this.isActive = index
       },
       judgeLoginShow () {
         this.loginBoxShow = true
@@ -122,25 +178,30 @@
   .name{font-size: 16px;color:rgba(0,0,0,1);margin: 20px 0 4px;}
 
   .proRight{float: right;width: 80px;}
-  .oldPrice{font-size: 16px;margin: 20px 0 4px;color:rgba(0,0,0,1);}
+  .allPrice{font-size: 16px;margin: 20px 0 4px;color:rgba(0,0,0,1);}
   .price{font-size: 14px; color: #797979;text-decoration: line-through;}
 
   .chooseDesc{}
   .chooseMain{padding-left: 10px;}
   .chooseMain .name{font-size: 16px;color:rgba(0,0,0,1);height: 40px;line-height: 40px;margin-top: 10px;}
-  .chooseOne{display: inline-block; border:1px solid rgba(232,232,232,1);border-radius: 4px;padding: 6px 15px;}
+  .chooseOne{display: inline-block; border:1px solid rgba(232,232,232,1);border-radius: 4px;padding: 6px 15px;margin-right: 10px;}
   .chooseOne i{display: block;width: 25px;height: 25px;border-radius: 50%;margin: 0 auto 6px;}
-  .chooseOne .colorRed{background-color: #CD9082}
-  .chooseOne .silvery{background-color: #BEBEBE;}
-  .chooseOne .gold{background-color: #F5D168;}
   .chooseOne em{font-style: normal}
   .chooseOne.active{border:1px solid rgba(225,70,59,1);}
 
   /* 加减数量*/
+  /*大盒子的样式*/
   .chooseCountNum{width: 130px;height: 28px;line-height: 28px;font-size: 16px;text-align: center;border:1px solid rgba(186,186,186,1);border-radius: 5px;}
-  .reduceNum{display: inline-block; width: 44px;float: left;border-right:1px solid rgba(186,186,186,1);}
-  .showNumValue{width: 40px;border: none;float: left;text-align: center;}
-  .addNum{display: inline-block; width: 44px;float: right;border-left:1px solid rgba(186,186,186,1);}
+  .valueText{width: 40px;border: none;float: left;text-align: center;}
+  /*加减按钮一边一个*/
+  .minleft{display: inline-block; width: 44px;float: left;border-radius: 5px 0 0 5px;}
+  .maxright{display: inline-block; width: 44px;float: right;border-radius: 0 5px 5px 0;}
+  /*加减按钮的样式*/
+  .minMax{display: inline-block;width: 40px;border: 0;cursor: pointer;}
+  /*中间按钮的样式*/
+  .valueText{float: left;width:48px;border: 0;text-align: center;font-size: 14px;color: #666;background-color: rgba(247,247,247,1);border-left:1px solid rgba(186,186,186,1);border-right:1px solid rgba(186,186,186,1);}
+  .addActive{background-color:rgba(247,247,247,1)}
+
 
   .loginBox{}
   .loginBox .mask{width: 100%;height: 100%;background-color: #000;opacity: .7;position: absolute;top:0;left:0;z-index: 99;}
