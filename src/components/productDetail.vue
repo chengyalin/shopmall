@@ -17,7 +17,7 @@
       <p class="detailDesc">{{detail.descp}}</p>
       <p class="price">￥{{detail.price}}</p>
     </div>
-    <div class="selectPro"  @click="goGood">
+    <div class="selectPro" @click="goGood">
       <span class="chooseWord">已选</span>
       <span class="selctInfo">还没有选择商品详细的类型</span>
       <img src="/static/img/goforward.png" alt="" class="goChoose">
@@ -39,12 +39,11 @@
         </van-col>
       </van-row>
     </div>
-
+    <!--加载-->
     <!--商品选择-->
     <van-popup v-model="goodShow" position="right" :overlay="false" class="goods-box">
       <product-detail-screen :data="detail"></product-detail-screen>
     </van-popup>
-    <!--加载-->
     <van-loading v-if="LoadingOk" type="spinner" color="black" class="loadPosition" />
     <!--点击购买，如果没有选择商品则提示选择商品-->
   </div>
@@ -101,9 +100,9 @@
 
       handleBuy () {
         //点击购买，如果没有选择商品则提示选择商品
-        //this.$toast('没有选择商品详细的类型')
+        this.$toast('没有选择商品详细的类型');
         //如果选择了商品就跳到orderInfo界面
-        this.$router.push({name: 'orderInfo'})
+
       }
     }
   }

@@ -2,22 +2,22 @@
   <div class="selfOrder">
     <headBar title="个人订单"></headBar>
     <div class="userInfo">
-      <img src="../assets/logo.png" alt="" class="userlLogo">
-      <span class="userPhone">111111111111</span>
-      <p class="exit"><img src="../assets/logo.png" alt=""> <br> <span class="exitWord">注销</span></p>
+      <img src="/static/img/touxiang.png" alt="" class="userlLogo">
+      <span class="userPhone">13477677735</span>
+      <p class="exit"><img src="/static/img/out.png" alt=""> <br> <span class="exitWord">注销</span></p>
     </div>
     <h2 class="title">我的订单</h2>
     <!--没有任何订单时的状态-->
     <div class="noOneOrder" v-if="showMyOrder">
       <img src="../assets/logo.png" alt="" class="noOrderImg">
       <p class="noOrderInfo">你还没有订单哦</p>
-      <p class="goShoping">去挑选</p>
+      <p class="goShoping" @click="IndexPageGo">去挑选</p>
     </div>
     <!--有订单状态，点击订单跳转到订单详情-->
     <div class="myOrderList" v-else>
         <ul>
-          <li>
-            <div class="myShopOrder" @click="selfOrderDetailGo">
+          <li @click="selfOrderDetailGo">
+            <div class="myShopOrder">
               <p class="orderNum">订单号：10029039209 <span class="state">配送中</span></p>
               <div class="productOrderList">
                 <img src="../assets/logo.png" alt="" class="proLeft">
@@ -35,26 +35,33 @@
           </li>
         </ul>
     </div>
+    <phoneLogin></phoneLogin>
     <footerBar></footerBar>
   </div>
 </template>
 <script>
-import footerBar from './footerBar'
+
 import headBar from './headBar'
+import footerBar from './footerBar'
+import phoneLogin from './phoneLogin'
 export default {
   name: 'selfOrder',
   components: {
     headBar,
-    footerBar
+    footerBar,
+    phoneLogin
   },
   data () {
     return {
-      showMyOrder: false
+      showMyOrder: true
     }
   },
   methods: {
     selfOrderDetailGo () {
       this.$router.push({name: 'selfOrderDetail'})
+    },
+    IndexPageGo () {
+      this.$router.push({name: 'indexPage'})
     }
   }
 }

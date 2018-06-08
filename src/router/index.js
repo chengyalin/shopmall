@@ -27,6 +27,7 @@ const selfOrderDetail = resolve => require(['components/selfOrderDetail.vue'], r
 const screening = resolve => require(['components/screening.vue'], resolve)
 const footerBar = resolve => require(['components/footerBar.vue'], resolve)
 const headBar = resolve => require(['components/headBar.vue'], resolve)
+const phoneLogin = resolve => require(['components/phoneLogin.vue'], resolve)
 
 Vue.use(Router)
 
@@ -99,6 +100,11 @@ export default new Router({
 			path: '/headBar',
 			name: 'headBar',
 			component: headBar
-		}
+		},
+    {
+      path: '/phoneLogin',
+      name: 'phoneLogin',
+      component: phoneLogin
+    },
 	]
 })

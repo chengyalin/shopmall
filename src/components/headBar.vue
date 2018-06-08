@@ -11,7 +11,11 @@ export default {
   	title:{
   		type:String,
   		defalut: ''
-  	}
+  	},
+    isRouter:{
+  	  type: Boolean,
+      defalut:false
+    }
   },
   data () {
     return {
@@ -20,7 +24,11 @@ export default {
   },
   methods: {
     goBackPage () {
-      this.$router.go(-1)
+      if(this.isRouter){
+        this.$emit('go');
+      }else{
+        this.$router.go(-1)
+      }
     }
   }
 }

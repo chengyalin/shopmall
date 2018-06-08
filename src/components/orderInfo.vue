@@ -37,23 +37,10 @@
     </div>
     <div class="ordInfo bordNone">
       <h2 class="name">支付方式</h2>
-      <div  class="radioSlect">
-        <div class="van-radio-group">
-          <div class="radioStyle van-radio inputWidth">
-            <span class="van-radio__input">
-              <input type="radio" class="van-radio__control" value="1">
-              <i class="van-icon van-icon-checked"></i>
-            </span>
-            <span class="van-radio__label"><img src="/static/img/weixin.png" alt="" class="wxLogo">微信支付</span>
-          </div>
-          <div  class="radioStyle van-radio inputWidth">
-            <span class="van-radio__input">
-              <input type="radio" class="van-radio__control" value="2">
-              <i class="van-icon van-icon-check"></i>
-            </span><span class="van-radio__label"><img src="/static/img/zhifubao.png" alt="" class="zfbLogo">支付宝</span>
-          </div>
-        </div>
-      </div>
+      <van-radio-group v-model="radio">
+        <van-radio class="radioStyle" name="1"><img src="/static/img/weixin.png" alt="" class="wxLogo">微信支付</van-radio>
+        <van-radio class="radioStyle" name="2"><img src="/static/img/zhifubao.png" alt="" class="zfbLogo">支付宝</van-radio>
+      </van-radio-group>
     </div>
     <div class="goPay">
       <p class="price">需支付 <span>￥2699</span></p>
@@ -71,7 +58,7 @@ export default {
   },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      radio: '1'
     }
   },
   methods : {
@@ -90,6 +77,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .orderInfo{padding-bottom: 50px;}
   .myShopOrder{}
   .productOrderList{width:100%;height: auto;overflow: hidden; border-bottom: 10px solid rgba(247,247,247,1);}
   .proLeft{display: block;float: left; width: 80px;height: 80px;border: 1px solid rgba(247,247,247,1);margin: 20px;}
@@ -110,7 +98,7 @@ export default {
   .chooseInfo{font-size: 14px;color: #717171;line-height: 22px;}
 
   .bordNone{border: none;}
-  .inputWidth{width: 50%;float: left;}
+  .radioStyle{width: 50%;float: left;}
   .wxLogo{display: inline-block; width: 30px;height: 25px;vertical-align: middle;}
   .zfbLogo{display: inline-block; width: 29px;height: 29px;vertical-align: middle;}
 
