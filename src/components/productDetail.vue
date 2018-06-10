@@ -1,8 +1,6 @@
 <template>
   <!--产品详情-->
   <div class="productDetail">
-
-
     <headBar title="订单详情"></headBar>
     <!--banner图-->
     <div class="bannerBox">
@@ -19,7 +17,7 @@
     </div>
     <div class="selectPro" @click="goGood">
       <span class="chooseWord">已选</span>
-      <span class="selctInfo">还没有选择商品详细的类型</span>
+      <span class="selctInfo">{{orderData.colorTitle}}{{orderData.netWorkTitle}}{{orderData.value}}{{orderData.totalPrice}}{{orderData.goodsNum}}</span>
       <img src="/static/img/goforward.png" alt="" class="goChoose">
     </div>
     <div class="proDdescripton">
@@ -42,7 +40,7 @@
     <!--加载-->
     <!--商品选择-->
     <van-popup v-model="goodShow" position="right" :overlay="false" class="goods-box">
-      <product-detail-screen :data="detail"></product-detail-screen>
+      <product-detail-screen :data="detail" @orderInfo="order"></product-detail-screen>
     </van-popup>
     <van-loading v-if="LoadingOk" type="spinner" color="black" class="loadPosition" />
     <!--点击购买，如果没有选择商品则提示选择商品-->
@@ -69,6 +67,9 @@
         detail:{},
         loginBoxShow:false,
         goodShow: false,
+
+        orderData:{}
+
       }
     },
     created () {
@@ -78,6 +79,11 @@
       this.getDetail()
     },
     methods: {
+      order (data) {
+        console.log(data)
+        this.goodShow = false;
+        this.orderData = data[0];
+      },
       goGood(){
         this.goodShow = true;
       },
@@ -100,8 +106,16 @@
 
       handleBuy () {
         //点击购买，如果没有选择商品则提示选择商品
-        this.$toast('没有选择商品详细的类型');
+        if(this.orderData.colorTitle === undefined){
+          this.$toast('没有选择商品详细的类型');
+          return;
+        }
         //如果选择了商品就跳到orderInfo界面
+        this.orderData.title = this.detail.title;
+        this.$router.push({
+          name: `orderInfo`,
+          params: this.orderData
+        })
 
       }
     }

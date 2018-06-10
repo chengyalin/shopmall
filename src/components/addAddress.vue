@@ -4,22 +4,27 @@
       <headBar title="添加地址"></headBar>
       <div class="van-cell van-hairline van-field">
         <div class="van-cell__title"><span>收货人</span></div>
-        <div class="van-cell__value"><input type="text" maxlength="15" placeholder="名字" class="van-field__control"></div>
+        <div class="van-cell__value"><input type="text" maxlength="15" placeholder="名字" class="van-field__control" v-model="reciver"></div>
       </div>
       <div class="van-cell van-hairline van-field">
         <div class="van-cell__title"><span>联系电话</span></div>
-        <div class="van-cell__value"><input type="tel" placeholder="手机或固定电话" class="van-field__control"></div>
+        <div class="van-cell__value"><input type="tel" placeholder="手机或固定电话" class="van-field__control" v-model="reciverPhone"></div>
       </div>
       <div class="van-cell van-hairline van-field van-field--has-icon">
         <div class="van-cell__title"><span>详细地址</span></div>
         <div class="van-cell__value">
-          <textarea placeholder="请输入详细地址信息，如道路 门牌号小区号" maxlength="200" rows="2" class="van-field__control" style="height: 48px;"></textarea>
+          <textarea placeholder="请输入详细地址信息，如道路 门牌号小区号" maxlength="200" rows="2" class="van-field__control" style="height: 48px;" v-model="reciverAddress"></textarea>
           <div class="van-field__icon"><div>
           </div>
           </div>
         </div>
       </div>
-      <div class="footerBtn">
+      <!--<div class="valuezhi">
+        {{reciver}} <br>
+        {{reciverPhone}}<br>
+        {{reciverAddress}}<br>
+      </div>-->
+      <div class="footerBtn" @click="saveBtn">
         <van-row>
           <van-col span="24">
             <van-button bottom-action>保存</van-button>
@@ -31,6 +36,9 @@
 
 <script>
 import headBar from './headBar'
+import { UserId } from 'common/js/common'
+import { creatAddress } from 'api/address'
+import {UserInfo} from "../common/js/common";
 export default {
   name: 'addAdress',
   components: {
@@ -38,8 +46,47 @@ export default {
   },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      reciver: '',
+      reciverPhone: '',
+      reciverAddress: '',
+      userInfo:''
     }
+  },
+  mounted(){
+    this.userInfo = UserInfo();
+  },
+  methods: {
+    saveBtn () {
+      if(this.reciver === ''){
+        this.$toast('请填写收货人');
+        return;
+      }
+      if(this.reciverPhone === ''){
+        this.$toast('请填写电话号码');
+        return;
+      }
+      if(this.reciverAddress === ''){
+        this.$toast('请填写详细地址');
+        return;
+      }
+      this.getAddress();
+    },
+    getAddress(){
+      let options = {
+        user_id: this.userInfo.user_id,
+        reciver:this.reciver,
+        address:this.reciverAddress,
+        re_phone:this.reciverPhone
+      }
+      creatAddress(options).then(res =>{
+        if(res.data.ok){
+          this.$toast('添加地址成功');
+          this.$router.push({
+            name: `orderInfo`
+          })
+        }
+      })
+    },
   }
 }
 </script>

@@ -18,20 +18,20 @@
     <div class="chooseDesc">
       <div class="chooseMain">
         <h2 class="name">颜色选择</h2>
-        <span @click="tabChangeColor(index)" class="chooseOne" :class="{'active': colorIndex === index}" v-for="(item, index) in detail.color_info" :key="index">
+        <span @click="tabChangeColor(item,index)" class="chooseOne" :class="{'active': colorIndex === index}" v-for="(item, index) in detail.color_info" :key="index">
           <i :style="{backgoundColor:item.value}"></i>
           <em>{{item.title}}</em>
         </span>
       </div>
       <div class="chooseMain">
         <h2 class="name">联网方式选择</h2>
-        <span @click="tabChangeNetwork(index)" class="chooseOne" :class="{'active': networkIndex === index}" v-for="(item, index) in detail.mode_info" :key="index">
+        <span @click="tabChangeNetwork(item,index)" class="chooseOne" :class="{'active': networkIndex === index}" v-for="(item, index) in detail.mode_info" :key="index">
           <em>{{item.title}}</em>
         </span>
       </div>
       <div class="chooseMain">
         <h2 class="name">门厚度选择</h2>
-        <span @click="tabChangeDoor(index )" class="chooseOne" :class="{'active': doorIndex === index}" v-for="(item, index ) in detail.value_info" :key="index">
+        <span @click="tabChangeDoor(item,index)" class="chooseOne" :class="{'active': doorIndex === index}" v-for="(item, index ) in detail.value_info" :key="index">
           <em>{{item.value}}</em>
         </span>
       </div>
@@ -62,7 +62,7 @@
 <script>
   import headBar from './headBar'
   import phoneLogin from './phoneLogin'
-  import { UserId } from 'common/js/common'
+  import { UserInfo } from 'common/js/common'
   import { productDetail } from 'api/product'
   export default {
     components: {
@@ -82,29 +82,29 @@
         result: 0,
         valueTextNum: 1,
         isActive: true,
-        phoneLoginShow: false,
+        phoneLoginShow: false,//手机登录框
 
         colorIndex: -1,
         networkIndex: -1,
         doorIndex: -1,
 
+        orderData:{},
+
+        userInfo:'',
+
       }
     },
     mounted() {
       this.detail = this.data;
+      this.userInfo = UserInfo();
     },
-    computed: {
-      //			valueTextNum(newVal) {
-      //				if(newVal == 1) {
-      //					return this.isaddActive = true;
-      //				}
-      //			}
-      totalPrice() {
+    computed: {//计算属性
+      totalPrice() {//计算总价
         let total = 0;
         total += this.valueTextNum * this.detail.price
         return total;
       },
-      isaddActive() {
+      isaddActive() {//计算购物车数量小于等于1，变灰色不能点
         if(this.valueTextNum <= 1) {
           return true;
         } else {
@@ -113,37 +113,67 @@
       }
     },
     methods: {
-      minus() {
+      minus() {//减
         if(this.valueTextNum <= 1) {
           return;
         }
-        this.valueTextNum--;
+        this.valueTextNum--
       },
-      add() {
-        this.valueTextNum++;
+      add() {//加
+        this.valueTextNum++
       },
-      tabChangeColor(index) {
+      tabChangeColor(item,index) {
         this.colorIndex = index
+        this.orderData.color_id = item.color_id;
+        this.orderData.colorTitle  = item.title;
+
       },
-      tabChangeNetwork(index) {
+      tabChangeNetwork(item,index) {
         this.networkIndex = index
+        this.orderData.netWorkTitle  = item.title;
+        this.orderData.mode_id =item.mode_id;
       },
-      tabChangeDoor(index) {
+      tabChangeDoor(item,index) {
         this.doorIndex = index
+        this.orderData.value = item.value;
+        this.orderData.value_id = item.value_id;
       },
       //如果没有在个人中心登录的话，点击确定弹出登录框
       judgeLoginShow() {
-        console.log(UserId())
-        if(UserId() === null) {
+        //如果没有选择，在页面跳转之前弹框提示
+        if(this.colorIndex === -1){
+          this.$toast("请选择商品颜色");
+          return;
+        }
+        if(this.networkIndex === -1){
+          this.$toast("请选择商品联网方式选择")
+          return;
+
+        }
+        if(this.doorIndex === -1){
+          this.$toast("请选择商品门厚度")
+          return;
+
+        }
+        if(this.userInfo === '') {
           this.phoneLoginShow = true;
-          console.log(this.phoneLoginShow)
-        } else {
-          this.$toast("你以登录")
+        } else{
+          // this.$toast("你以登录成功")
+          //如果登陆成功就返回详情页，并把选中的商品内容传给详情页
+          //this.$router.push({name: 'productDetail'})
+          this.orderData.total_fee = this.totalPrice;
+          this.orderData.product_id = this.detail.id;
+          this.orderData.goodsNum = this.valueTextNum;
+          this.orderData.image = `http://tianyi.zhongkakeji.com/media/${this.detail.image}`
+          this.orderData.user_id = this.userInfo.user_id;
+          console.log(this.orderData);
+          this.$emit('orderInfo',[this.orderData]);
         }
 
       },
       loginFn(val){
         this.phoneLoginShow = false;
+        this.userInfo = UserInfo();
       },
       closeLogin(){
         this.phoneLoginShow = false;

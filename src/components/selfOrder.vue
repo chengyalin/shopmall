@@ -8,13 +8,13 @@
     </div>
     <h2 class="title">我的订单</h2>
     <!--没有任何订单时的状态-->
-    <div class="noOneOrder" v-if="showMyOrder">
+    <div class="noOneOrder">
       <img src="../assets/logo.png" alt="" class="noOrderImg">
       <p class="noOrderInfo">你还没有订单哦</p>
       <p class="goShoping" @click="IndexPageGo">去挑选</p>
     </div>
     <!--有订单状态，点击订单跳转到订单详情-->
-    <div class="myOrderList" v-else>
+    <div class="myOrderList">
         <ul>
           <li @click="selfOrderDetailGo">
             <div class="myShopOrder">
@@ -35,7 +35,8 @@
           </li>
         </ul>
     </div>
-    <phoneLogin></phoneLogin>
+    <!--如果没有登录要提示登录框-->
+    <phoneLogin v-show="phoneLoginShow" @login="loginFn" @close="closeLogin"></phoneLogin>
     <footerBar></footerBar>
   </div>
 </template>
@@ -44,6 +45,8 @@
 import headBar from './headBar'
 import footerBar from './footerBar'
 import phoneLogin from './phoneLogin'
+import { UserInfo } from 'common/js/common'
+import { creatSelfOrder } from 'api/product'
 export default {
   name: 'selfOrder',
   components: {
@@ -53,10 +56,34 @@ export default {
   },
   data () {
     return {
-      showMyOrder: true
+      //showMyOrder: true
+      creatSelfOrder: [],
     }
   },
+  mounted () {
+    this.data = this.$route.params;
+    this.userInfo = UserInfo();
+    this.getSelfOrderList()
+  },
   methods: {
+      getSelfOrderList(){
+        let data = this.data;
+        let options = {
+          user_id: this.userInfo.user_id,
+          channel: this.radio,
+          product_id:data.product_id,
+          user_id:data.user_id,
+          value_id:data.value_id,
+          color_id:data.color_id,
+          total_fee:data.total_fee,
+          mode_id:data.mode_id,
+        }
+      creatSelfOrder(options).then(res =>{
+        if(res.data.ok){
+          this.creatSelfOrder = res.data.data;
+        }
+      })
+    },
     selfOrderDetailGo () {
       this.$router.push({name: 'selfOrderDetail'})
     },

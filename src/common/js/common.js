@@ -1,5 +1,6 @@
-export function UserId() {
-	let userId = window.localStorage.getItem('user_id');
-	return userId;
+export function UserInfo() {
+	let userInfo = window.localStorage.getItem('userInfo');
+	userInfo = userInfo? JSON.parse(userInfo): '';
+	return userInfo;
 }
 

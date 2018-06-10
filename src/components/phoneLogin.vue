@@ -4,7 +4,7 @@
       <div class="mask"></div>
       <div class="loginMain">
         <div class="loginBar">
-          <!--<img src="/static/img/goBack.png" alt="" class="goBackIcon">-->
+          <img src="/static/img/goBack.png" alt="" class="goBackIcon">
           <p class="navName">{{title}}</p>
           <img src="/static/img/close.png" alt="" class="close" @click="loginBoxHide">
         </div>
@@ -106,8 +106,9 @@
           login(options).then(res => {
             if(res.data.ok) {
               this.$toast("登录成功")
-              localStorage.setItem("user_id", res.data.data.user_id);
-              localStorage.setItem("phone", res.data.data.phone);
+              // localStorage.setItem("user_id", res.data.data.user_id);
+              // localStorage.setItem("phone", res.data.data.phone);
+              localStorage.setItem("userInfo", JSON.stringify(res.data.data));
               this.$emit('login',false);
 //							this.$router.push({
 //								path: "/indexPage"

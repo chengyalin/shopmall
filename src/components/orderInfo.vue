@@ -4,23 +4,23 @@
     <headBar title="订单信息"></headBar>
     <div class="myShopOrder">
       <div class="productOrderList">
-        <img src="../assets/logo.png" alt="" class="proLeft">
+        <img :src="data.image" alt="" class="proLeft">
         <div class="proCenter">
-          <p class="name">优点智能锁 E1</p>
-          <p class="proInfo">蓝牙版 共1件商品</p>
-          <p class="dataTime">2018.02.04 19:48</p>
+          <p class="name">{{data.title}}</p>
+          <p class="proInfo">{{data.netWorkTitle}} 共{{data.goodsNum}}件商品</p>
+          <!--<p class="dataTime">2018.02.04 19:48</p>-->
         </div>
         <div class="proRight">
-          <p class="oldPrice">￥2699</p>
-          <p class="price">￥2699</p>
+          <p class="oldPrice">￥{{data.total_fee}}</p>
+          <p class="price">￥{{data.total_fee}}</p>
         </div>
       </div>
     </div>
     <div class="ordInfo">
       <h2 class="name">收货信息 <span class="goChange" @click="goChangeAddress">修改 <img src="/static/img/goforward.png" alt=""></span></h2>
-      <p class="chooseInfo">王志武爱打鼓 </p>
-      <p class="chooseInfo">187 7888 7827 </p>
-      <p class="chooseInfo">清华大学研究院a211 </p>
+      <p class="chooseInfo">{{userInfo.receiver}} </p>
+      <p class="chooseInfo">{{userInfo.re_phone}} </p>
+      <p class="chooseInfo">{{userInfo.address}} </p>
     </div>
     <div class="ordInfo">
       <h2 class="name">赠送宽带 <span class="goChange" @click="goInstallationAddress">修改 <img src="/static/img/goforward.png" alt=""></span></h2>
@@ -38,19 +38,22 @@
     <div class="ordInfo bordNone">
       <h2 class="name">支付方式</h2>
       <van-radio-group v-model="radio">
-        <van-radio class="radioStyle" name="1"><img src="/static/img/weixin.png" alt="" class="wxLogo">微信支付</van-radio>
-        <van-radio class="radioStyle" name="2"><img src="/static/img/zhifubao.png" alt="" class="zfbLogo">支付宝</van-radio>
+        <van-radio class="radioStyle" name="W"><img src="/static/img/weixin.png" alt="" class="wxLogo">微信支付</van-radio>
+        <van-radio class="radioStyle" name="Z"><img src="/static/img/zhifubao.png" alt="" class="zfbLogo">支付宝</van-radio>
       </van-radio-group>
     </div>
     <div class="goPay">
-      <p class="price">需支付 <span>￥2699</span></p>
-      <p class="payBtn">去支付</p>
+      <p class="price">需支付 <span>{{data.total_fee}}</span></p>
+      <p class="payBtn" @click="goPay">去支付</p>
     </div>
   </div>
 </template>
 
 <script>
 import headBar from './headBar'
+import { creatOrder } from 'api/order'
+import { UserInfo } from 'common/js/common'
+
 export default {
   name: 'orderInfo',
   components: {
@@ -58,10 +61,46 @@ export default {
   },
   data () {
     return {
-      radio: '1'
+      radio: 'W',
+      data:{},
+      userInfo:''
     }
   },
+  mounted(){
+    this.data = this.$route.params;
+    if(this.data.colorTitle === undefined){
+      this.$router.push({
+        name: `indexPage`
+      })
+      return;
+    }
+    this.userInfo = UserInfo();
+  },
   methods : {
+    goPay(){
+      let data = this.data;
+      let options = {
+        channel: this.radio,
+        product_id:data.product_id,
+        user_id:data.user_id,
+        value_id:data.value_id,
+        color_id:data.color_id,
+        total_fee:data.total_fee,
+        mode_id:data.mode_id,
+      }
+      creatOrder(options).then(res =>{
+        console.log(res);
+        if(res.data.ok){
+          let iframe = document.createElement('iframe')
+          iframe.style.display = 'none'
+          iframe.src = res.data.data
+          iframe.onload = function () {
+            document.body.removeChild(iframe)
+          }
+          document.body.appendChild(iframe)
+        }
+      })
+    },
     goChangeAddress () {
       this.$router.push({name: 'addAddress'})
     },
