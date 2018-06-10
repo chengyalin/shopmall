@@ -4,7 +4,7 @@
       <div class="mask"></div>
       <div class="loginMain">
         <div class="loginBar">
-          <img src="/static/img/goBack.png" alt="" class="goBackIcon">
+          <!--<img src="/static/img/goBack.png" alt="" class="goBackIcon">-->
           <p class="navName">{{title}}</p>
           <img src="/static/img/close.png" alt="" class="close" @click="loginBoxHide">
         </div>

@@ -37,6 +37,8 @@
     </div>
     <!--如果没有登录要提示登录框-->
     <phoneLogin v-show="phoneLoginShow" @login="loginFn" @close="closeLogin"></phoneLogin>
+    <!--关闭登录框提示登录或者跳转首页-->
+
     <footerBar></footerBar>
   </div>
 </template>
@@ -46,7 +48,7 @@ import headBar from './headBar'
 import footerBar from './footerBar'
 import phoneLogin from './phoneLogin'
 import { UserInfo } from 'common/js/common'
-import { creatSelfOrder } from 'api/product'
+import { creatSelfOrder } from 'api/selforder'
 export default {
   name: 'selfOrder',
   components: {
@@ -57,30 +59,35 @@ export default {
   data () {
     return {
       //showMyOrder: true
+      phoneLoginShow: true,//手机登录框
       creatSelfOrder: [],
+      orderData:{},
+
+      userInfo:'',
     }
   },
   mounted () {
-    this.data = this.$route.params;
     this.userInfo = UserInfo();
     this.getSelfOrderList()
+
+
   },
   methods: {
+    loginFn(val){
+      this.phoneLoginShow = false;
+      this.userInfo = UserInfo();
+    },
+    closeLogin(){
+      this.phoneLoginShow = false;
+    },
       getSelfOrderList(){
-        let data = this.data;
         let options = {
-          user_id: this.userInfo.user_id,
-          channel: this.radio,
-          product_id:data.product_id,
-          user_id:data.user_id,
-          value_id:data.value_id,
-          color_id:data.color_id,
-          total_fee:data.total_fee,
-          mode_id:data.mode_id,
+          user_id:data.user_id
         }
       creatSelfOrder(options).then(res =>{
         if(res.data.ok){
           this.creatSelfOrder = res.data.data;
+
         }
       })
     },

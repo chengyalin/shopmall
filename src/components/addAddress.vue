@@ -4,7 +4,7 @@
       <headBar title="添加地址"></headBar>
       <div class="van-cell van-hairline van-field">
         <div class="van-cell__title"><span>收货人</span></div>
-        <div class="van-cell__value"><input type="text" maxlength="15" placeholder="名字" class="van-field__control" v-model="reciver"></div>
+        <div class="van-cell__value"><input type="text" maxlength="15" placeholder="名字" class="van-field__control" v-model="receiver"></div>
       </div>
       <div class="van-cell van-hairline van-field">
         <div class="van-cell__title"><span>联系电话</span></div>
@@ -46,7 +46,7 @@ export default {
   },
   data () {
     return {
-      reciver: '',
+      receiver: '',
       reciverPhone: '',
       reciverAddress: '',
       userInfo:''
@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     saveBtn () {
-      if(this.reciver === ''){
+      if(this.receiver === ''){
         this.$toast('请填写收货人');
         return;
       }
@@ -74,7 +74,7 @@ export default {
     getAddress(){
       let options = {
         user_id: this.userInfo.user_id,
-        reciver:this.reciver,
+        receiver:this.receiver,
         address:this.reciverAddress,
         re_phone:this.reciverPhone
       }
