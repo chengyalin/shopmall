@@ -82,7 +82,8 @@ export default {
         if(res.data.ok){
           this.$toast('添加地址成功');
           this.$router.push({
-            name: `orderInfo`
+            name: `orderInfo`,
+            params: this.data
           })
         }
       })

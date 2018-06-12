@@ -36,7 +36,8 @@ Vue.use(Icon)
   .use(Lazyload, {
     loading: './static/img/loading.gif',
     preLoad: 1.3,
-    attempt: 1
+    attempt: 1,
+    adapter:0.5
   })
 
 Vue.config.productionTip = false

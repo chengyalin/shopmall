@@ -16,32 +16,32 @@
       <div class="componyInvoice" v-show="writeAddr">
         <div class="van-cell van-hairline van-field">
           <div class="van-cell__title"><span>用户姓名</span></div>
-          <div class="van-cell__value"><input type="text" maxlength="15" placeholder="请输入用户姓名" class="van-field__control"></div>
+          <div class="van-cell__value"><input type="text" maxlength="15" placeholder="请输入用户姓名" class="van-field__control" v-model="userName"></div>
         </div>
         <div class="van-cell van-hairline van-field">
           <div class="van-cell__title"><span>预约电话</span></div>
-          <div class="van-cell__value"><input type="tel" placeholder="预约电话" class="van-field__control"></div>
+          <div class="van-cell__value"><input type="tel" placeholder="预约电话" class="van-field__control" v-model="youPhone"></div>
         </div>
         <div class="van-cell van-hairline van-field">
           <div class="van-cell__title"><span>身份证号码</span></div>
-          <div class="van-cell__value"><input type="tel" placeholder="身份证号码" class="van-field__control"></div>
+          <div class="van-cell__value"><input type="tel" placeholder="身份证号码" class="van-field__control" v-model="selfCard"></div>
         </div>
         <div class="van-cell van-hairline van-field">
           <div class="van-cell__title"><span>预约时间</span></div>
-          <div class="van-cell__value"><input type="tel" placeholder="预约安装时间" class="van-field__control"></div>
+          <div class="van-cell__value"><input type="tel" placeholder="预约安装时间" class="van-field__control" v-model="youTime"></div>
         </div>
         <div class="van-cell van-hairline van-field">
           <div class="van-cell__title"><span>所在市</span></div>
-          <div class="van-cell__value"><input type="tel" placeholder="所在市" class="van-field__control"></div>
+          <div class="van-cell__value"><input type="tel" placeholder="所在市" class="van-field__control" v-model="userCity"></div>
         </div>
         <div class="van-cell van-hairline van-field">
           <div class="van-cell__title"><span>所在区</span></div>
-          <div class="van-cell__value"><input type="text" maxlength="15" placeholder="所在区" class="van-field__control"></div>
+          <div class="van-cell__value"><input type="text" maxlength="15" placeholder="所在区" class="van-field__control" v-model="userArea"></div>
         </div>
         <div class="van-cell van-hairline van-field">
           <div class="van-cell__title"><span>详细地址</span></div>
           <div class="van-cell__value">
-            <textarea placeholder="请输入详细地址信息，如道路 门牌号小区号" maxlength="200" rows="2" class="van-field__control" style="height: 48px;"></textarea>
+            <textarea placeholder="请输入详细地址信息，如道路 门牌号小区号" maxlength="200" rows="2" class="van-field__control" style="height: 48px;" v-model="detailAddr"></textarea>
             <div class="van-field__icon"><div>
             </div>
             </div>
@@ -50,7 +50,7 @@
         <div class="van-cell van-hairline van-field">
         </div>
       </div>
-      <div class="footerBtn">
+      <div class="footerBtn" @click="saveBtn">
         <van-row>
           <van-col span="24">
             <van-button bottom-action>保存</van-button>
@@ -62,6 +62,8 @@
 
 <script>
   import headBar from './headBar'
+  import { creatInstallationAddress } from 'api/InstallationAddress'
+  import {UserInfo} from "../common/js/common";
 export default {
   name: 'InstallationAddress',
   components :{
@@ -71,16 +73,77 @@ export default {
     return {
       radio: '1',
       isActive: true,
-      writeAddr:true
+      writeAddr:true,
+      userInfo:'',
+      userName:'',
+      youPhone:'',
+      selfCard:'',
+      youTime:'',
+      userCity:'',
+      userArea:'',
+      detailAddr:''
     }
   },
+  mounted(){
+    this.userInfo = UserInfo();
+  },
   methods: {
+    saveBtn () {
+      if(this.userName === ''){
+        this.$toast('请填写姓名');
+        return;
+      }
+      if(this.youPhone === ''){
+        this.$toast('请填写预约人电话');
+        return;
+      }
+      if(this.selfCard === ''){
+        this.$toast('请填写省份证号码');
+        return;
+      }
+      if(this.youTime === ''){
+        this.$toast('请填写预约时间');
+        return;
+      }
+      if(this.userCity === ''){
+        this.$toast('请填写所在市');
+        return;
+      }
+      if(this.userArea === ''){
+        this.$toast('请填写所在区');
+        return;
+      }
+      if(this.detailAddr === ''){
+        this.$toast('请填写详细地址');
+        return;
+      }
+
+      this.getInstallationAddress();
+    },
+    getInstallationAddress(){
+      let options = {
+        user_id: this.userInfo.user_id,
+        name:this.userName,
+        phone:this.youPhone,
+        id_card:this.selfCard,
+        date:this.youTime,
+        address:this.userCity + '' + this.userArea + '' + this.detailAddr,
+      }
+      creatInstallationAddress(options).then(res =>{
+        if(res.data.ok){
+          this.$toast('添加宽带安装信息成功');
+          this.$router.push({
+            name: `orderInfo`,
+            params: this.data
+          })
+        }
+      })
+    },
     writeAddrHide () {
       this.writeAddr = false
     },
     writeAddrShow () {
       this.writeAddr = true
-
     }
   }
 }

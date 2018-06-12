@@ -148,15 +148,15 @@
   }
 
   .proBox {
-    width: 96px;
+    width: 0.91rem;
     float: left;
     margin: 6px 0;
   }
 
   .proImg {
     display: block;
-    width: 80px;
-    height: 80px;
+    width: 0.80rem;
+    height: 0.8rem;
     margin: 0 auto 4px;
   }
 

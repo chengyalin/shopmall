@@ -19,7 +19,7 @@
       <div class="chooseMain">
         <h2 class="name">颜色选择</h2>
         <span @click="tabChangeColor(item,index)" class="chooseOne" :class="{'active': colorIndex === index}" v-for="(item, index) in detail.color_info" :key="index">
-          <i :style="{backgoundColor:item.value}"></i>
+          <i :style="{'backgroundColor':item.value}"></i>
           <em>{{item.title}}</em>
         </span>
       </div>
@@ -91,6 +91,7 @@
         orderData:{},
 
         userInfo:'',
+
 
       }
     },
@@ -195,7 +196,7 @@
   .allPrice{font-size: 16px;margin: 20px 0 4px;color:rgba(0,0,0,1);}
   .price{font-size: 14px; color: #797979;text-decoration: line-through;}
 
-  .chooseDesc{}
+  .chooseDesc{margin-bottom: 70px;}
   .chooseMain{padding-left: 10px;}
   .chooseMain .name{font-size: 16px;color:rgba(0,0,0,1);height: 40px;line-height: 40px;margin-top: 10px;}
   .chooseOne{display: inline-block; border:1px solid rgba(232,232,232,1);border-radius: 4px;padding: 6px 15px;margin-right: 10px;}
@@ -216,6 +217,7 @@
   .valueText{float: left;width:48px;border: 0;text-align: center;font-size: 14px;color: #666;background-color: rgba(247,247,247,1);border-left:1px solid rgba(186,186,186,1);border-right:1px solid rgba(186,186,186,1);}
   .addActive{background-color:rgba(247,247,247,1)}
 
+  .productDetailScreen{height:100%;overflow: scroll;}
   .footerBtn{width: 100%; position: fixed;bottom: 0;left: 0;}
   .loadPosition{position: fixed;
     top:50%;

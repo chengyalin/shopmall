@@ -1,7 +1,7 @@
 <template>
   <!--产品详情-->
   <div class="productDetail">
-    <headBar title="订单详情"></headBar>
+    <headBar title="商品详情"></headBar>
     <!--banner图-->
     <div class="bannerBox">
       <van-swipe class="bannerImgBox" :autoplay="6000" vertical >
@@ -114,7 +114,7 @@
         this.orderData.title = this.detail.title;
         this.$router.push({
           name: `orderInfo`,
-          params: this.orderData
+          params: this.orderData //路由传参
         })
 
       }
@@ -135,19 +135,21 @@
 
   .selectPro{height: 44px;line-height: 44px;border-bottom: 10px solid rgba(247,247,247,1);}
   .chooseWord{display: inline-block;color: #787878;float: left;margin: 0 10px}
-  .selctInfo{display: inline-block;width: 280px;color:rgba(0,0,0,1);font-size: 15px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
-  .goChoose{display: inline-block;float: right;width: 8px;height: 14px;padding:14px 12px;}
+  .selctInfo{display: inline-block;width: 2.80rem;color:rgba(0,0,0,1);font-size: 15px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+  .goChoose{display: inline-block;float: right;width: 8px;height: 14px;padding:14px 12px 14px 0;}
 
   .proDdescripton{border-bottom: 1px solid #e5e5e5;height: 38px;line-height: 38px;}
   .proDdescripton p{display: inline-block; font-size:14px;color:rgba(0,0,0,1);width: 50%;float: left;text-align: center;}
   .proDdescripton span.active{border-bottom: 2px solid rgba(225,70,59,1);padding:0 10px 10px;}
 
-  .introPro{max-width: 100%;display: block;}
+  .introPro{max-width: 100%;display: block;margin: 0 auto;}
 
   .footerBtn{width: 100%; position: fixed;bottom: 0;left: 0;}
+  .productDetail{padding-bottom: 50px;}
+
   .loadPosition{position: fixed;
     top:50%;
     left:50%;
     transform:translate(-50%,-50%);}
-  .goods-box{width: 100%;height: 100%;}
+  .goods-box{width: 100%;height: 100%;overflow: scroll;}
 </style>

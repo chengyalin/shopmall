@@ -2,7 +2,7 @@
   <!--添加地址页-->
   <div class="footerBar">
     <div class="footerNav">
-      <router-link to="/" class="navTab">
+      <router-link to="/indexPage" class="navTab">
         <i class="footerIconOne"></i>
         <p>首页</p>
       </router-link>
@@ -34,7 +34,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .footerNav {position: fixed;width: 100%;height: 50px;background-color: #fff;left: 0;bottom: 0;z-index: 999;}
+  .footerNav {position: fixed;width: 100%;height: 50px;background-color: #fff;left: 0;bottom: 0;z-index: 999;border-top:1px solid #FFEFEF;}
   .navTab{width: 33.33%;float: left;text-align: center;}
   .navTab .footerIconOne{display: block;margin:6px auto;width: 21px; height: 18px;background: url("/static/img/navhomeGray.png") no-repeat;background-size: cover;}
   .navTab .footerIconTwo{display: block;margin:6px auto;width: 18px; height: 18px;background: url("/static/img/navslectGray.png") no-repeat;background-size: cover;}

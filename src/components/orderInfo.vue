@@ -24,17 +24,19 @@
     </div>
     <div class="ordInfo">
       <h2 class="name">赠送宽带 <span class="goChange" @click="goInstallationAddress">修改 <img src="/static/img/goforward.png" alt=""></span></h2>
-      <p class="chooseInfo">王志武爱打鼓 </p>
-      <p class="chooseInfo">187 7888 7827 </p>
-      <p class="chooseInfo">清华大学研究院a211 </p>
+      <p class="chooseInfo">{{broadband.name}} </p>
+      <p class="chooseInfo">{{broadband.phone}}</p>
+      <p class="chooseInfo">{{broadband.id_card}} </p>
+      <p class="chooseInfo">{{broadband.date}} </p>
+      <p class="chooseInfo">{{broadband.address}} </p>
     </div>
     <!--开具发票暂时不做-->
-    <div class="ordInfo">
+    <!--<div class="ordInfo">
       <h2 class="name">开具发票 <span class="goChange" @click="goInvoice">修改 <img src="/static/img/goforward.png" alt=""></span></h2>
       <p class="chooseInfo">王志武爱打鼓 </p>
       <p class="chooseInfo">187 7888 7827 </p>
       <p class="chooseInfo">清华大学研究院a211 </p>
-    </div>
+    </div>-->
     <div class="ordInfo bordNone">
       <h2 class="name">支付方式</h2>
       <van-radio-group v-model="radio">
@@ -43,7 +45,7 @@
       </van-radio-group>
     </div>
     <div class="goPay">
-      <p class="price">需支付 <span>{{data.total_fee}}</span></p>
+      <p class="payPrice">需支付 <span>{{data.total_fee}}</span></p>
       <p class="payBtn" @click="goPay">去支付</p>
     </div>
   </div>
@@ -53,6 +55,7 @@
 import headBar from './headBar'
 import { creatOrder } from 'api/order'
 import { UserInfo } from 'common/js/common'
+import { queryInstallationAddress } from 'api/InstallationAddress'
 
 export default {
   name: 'orderInfo',
@@ -63,7 +66,8 @@ export default {
     return {
       radio: 'W',
       data:{},
-      userInfo:''
+      userInfo:'',
+      broadband:''
     }
   },
   mounted(){
@@ -75,8 +79,21 @@ export default {
       return;
     }
     this.userInfo = UserInfo();
+    this.getInstallationAddress() //获取宽带更新地址
   },
   methods : {
+    getInstallationAddress(){//获取宽带更新地址
+      let options = {
+        user_id: this.userInfo.user_id,
+      }
+      queryInstallationAddress(options).then(res =>{
+        console.log(res);
+        console.log(111)
+        if(res.data.ok){
+          this.broadband = res.data.data;
+        }
+      })
+    },
     goPay(){
       let data = this.data;
       let options = {
@@ -91,13 +108,7 @@ export default {
       creatOrder(options).then(res =>{
         console.log(res);
         if(res.data.ok){
-          let iframe = document.createElement('iframe')
-          iframe.style.display = 'none'
-          iframe.src = res.data.data
-          iframe.onload = function () {
-            document.body.removeChild(iframe)
-          }
-          document.body.appendChild(iframe)
+          this.data = res.data.data
         }
       })
     },
@@ -128,7 +139,7 @@ export default {
 
   .proRight{float: right;width: 80px;}
   .oldPrice{font-size: 16px;margin: 20px 0 4px}
-  .price{font-size: 14px; color: rgba(216,216,216,1);}
+  .price{font-size: 14px; color: rgba(216,216,216,1);text-decoration: line-through;}
 
   .ordInfo{padding: 10px 0;margin: 0 20px; border-bottom: 1px solid rgba(247,247,247,1);height: auto;overflow: hidden;}
   .ordInfo .name{line-height: 30px;font-size: 16px;color:rgba(0,0,0,1);}
@@ -142,7 +153,7 @@ export default {
   .zfbLogo{display: inline-block; width: 29px;height: 29px;vertical-align: middle;}
 
   .goPay{position: fixed;bottom: 0;left: 0;height: 50px;line-height: 50px;width: 100%;background-color: #fff;border-top: 1px solid rgba(247,247,247,1);}
-  .price{width: 50%;float: left;font-size: 14px;text-align: center}
-  .price span{font-size: 20px;color:rgba(0,0,0,1);}
+  .payPrice{width: 50%;float: left;font-size: 14px;text-align: center}
+  .payPrice span{font-size: 20px;color:rgba(0,0,0,1);}
   .payBtn{width: 50%;float: right;text-align: center;color: #fff;background-color: rgba(225,70,59,1);font-size: 16px;}
 </style>

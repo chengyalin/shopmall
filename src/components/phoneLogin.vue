@@ -126,7 +126,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .loginBox{}
-.loginBox .mask{width: 100%;height: 100%;background-color: #000;opacity: .7;position: absolute;top:0;left:0;z-index: 1000;}
+.loginBox .mask{width: 100%;height: 100%;background-color: #000;opacity: .7;position: fixed;top:0;left:0;z-index: 1000;}
 .loginMain{width: 300px;border-radius: 5px; background-color: #fff; position: fixed;top: 50%;left: 50%;transform:translate(-50%,-50%);z-index: 1001;}
 .loginBar{}
 .goBackIcon{display: block; width: 8px;height: 14px;padding: 4px;position: absolute;top: 16px;left: 20px;}
