@@ -12,7 +12,7 @@
         </div>
         <div class="proRight">
           <p class="oldPrice">￥{{data.total_fee}}</p>
-          <p class="price">￥{{data.total_fee}}</p>
+          <p class="price">￥{{data.price}}</p>
         </div>
       </div>
     </div>
@@ -24,11 +24,13 @@
     </div>
     <div class="ordInfo">
       <h2 class="name">赠送宽带 <span class="goChange" @click="goInstallationAddress">修改 <img src="/static/img/goforward.png" alt=""></span></h2>
-      <p class="chooseInfo">{{broadband.name}} </p>
-      <p class="chooseInfo">{{broadband.phone}}</p>
-      <p class="chooseInfo">{{broadband.id_card}} </p>
-      <p class="chooseInfo">{{broadband.date}} </p>
-      <p class="chooseInfo">{{broadband.address}} </p>
+      <div class="broadbandBox" v-show="broadbandBoxShow">
+        <p class="chooseInfo">{{broadband.nick}} </p>
+        <p class="chooseInfo">{{broadband.phone}}</p>
+        <p class="chooseInfo">{{broadband.id_card}} </p>
+        <p class="chooseInfo">{{broadband.date}} </p>
+        <p class="chooseInfo">{{broadband.address}} </p>
+      </div>
     </div>
     <!--开具发票暂时不做-->
     <!--<div class="ordInfo">
@@ -48,6 +50,14 @@
       <p class="payPrice">需支付 <span>{{data.total_fee}}</span></p>
       <p class="payBtn" @click="goPay">去支付</p>
     </div>
+    <!--添加地址-->
+    <van-popup v-model="addAddressShow" position="right" :overlay="false" class="addAddressShow">
+      <add-address :data="data" @addAdress="addAdressData"></add-address>
+    </van-popup>
+    <!--添加宽带安装地址-->
+    <van-popup v-model="installAddressShow" position="right" :overlay="false" class="installAddressShow">
+      <installation-address :data="data" @InstallationAddress="InstallationAddressData" @noAddress="installAddress"></installation-address>
+    </van-popup>
   </div>
 </template>
 
@@ -55,46 +65,89 @@
 import headBar from './headBar'
 import { creatOrder } from 'api/order'
 import { UserInfo } from 'common/js/common'
+import { creatAddress } from 'api/address'
 import { queryInstallationAddress } from 'api/InstallationAddress'
+import AddAddress from './addAddress'
+import InstallationAddress from './InstallationAddress'
 
 export default {
   name: 'orderInfo',
   components: {
-    headBar
+    headBar,
+    AddAddress,
+    InstallationAddress
   },
   data () {
     return {
       radio: 'W',
-      data:{},
+      data:{},//接收数据
       userInfo:'',
-      broadband:''
+      broadband:'',
+      addAddressShow: false,
+      installAddressShow: false,
+      broadbandBoxShow : true
     }
   },
   mounted(){
     this.data = this.$route.params;
-    if(this.data.colorTitle === undefined){
+    if(this.data.colorTitle === undefined){//如果界面刷新就跳转到首页
       this.$router.push({
         name: `indexPage`
       })
       return;
     }
     this.userInfo = UserInfo();
+
     this.getInstallationAddress() //获取宽带更新地址
   },
   methods : {
+    //添加地址
+    addAdressData (data) {
+      this.addAddressShow = false;
+
+     this.userInfo.receiver = data.receiver;
+     this.userInfo.re_phone = data.re_phone;
+     this.userInfo.phone = data.phone;
+     this.userInfo.address = data.address;
+      localStorage.setItem("userInfo", JSON.stringify(this.userInfo));
+      //this.data = data[0];
+    },
+    goChangeAddress(){
+      this.addAddressShow = true;
+    },
+
+    //添加宽带地址
+    InstallationAddressData () {
+      this.installAddressShow = false;
+      this.broadbandBoxShow = true;
+
+      //this.data = data[0];
+      this.getInstallationAddress();
+    },
+    installAddress(){//不安装宽带状态
+      this.installAddressShow = false;//白色层，显示内容层
+      this.broadbandBoxShow = false;
+    },
+    goInstallationAddress(){
+      this.installAddressShow = true;
+    },
+
     getInstallationAddress(){//获取宽带更新地址
       let options = {
         user_id: this.userInfo.user_id,
       }
       queryInstallationAddress(options).then(res =>{
-        console.log(res);
-        console.log(111)
         if(res.data.ok){
           this.broadband = res.data.data;
         }
       })
     },
     goPay(){
+      //支付前如果没填写地址，提示填写地址
+      /*if(this.userInfo.receiver === ''){
+        this.$toast('请填写地址哦');
+        return;
+      }*/
       let data = this.data;
       let options = {
         channel: this.radio,
@@ -104,22 +157,15 @@ export default {
         color_id:data.color_id,
         total_fee:data.total_fee,
         mode_id:data.mode_id,
+        count:data.goodsNum,
       }
       creatOrder(options).then(res =>{
         console.log(res);
         if(res.data.ok){
           this.data = res.data.data
         }
+        window.location.href = this.data.pay_link
       })
-    },
-    goChangeAddress () {
-      this.$router.push({name: 'addAddress'})
-    },
-    goInstallationAddress () {
-      this.$router.push({name: 'InstallationAddress'})
-    },
-    goInvoice () {
-      this.$router.push({name: 'invoice'})
     }
   }
 }
@@ -156,4 +202,7 @@ export default {
   .payPrice{width: 50%;float: left;font-size: 14px;text-align: center}
   .payPrice span{font-size: 20px;color:rgba(0,0,0,1);}
   .payBtn{width: 50%;float: right;text-align: center;color: #fff;background-color: rgba(225,70,59,1);font-size: 16px;}
+
+  .addAddressShow{width: 100%;height: 100%;overflow: scroll;}
+  .installAddressShow{width: 100%;height: 100%;overflow: scroll;}
 </style>

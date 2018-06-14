@@ -1,7 +1,9 @@
 <template>
     <!--添加地址页-->
     <div class="addAdress">
-      <headBar title="添加地址"></headBar>
+      <div class="headBar">
+        <div class="navBar"><p class="navName">添加地址</p></div>
+      </div>
       <div class="van-cell van-hairline van-field">
         <div class="van-cell__title"><span>收货人</span></div>
         <div class="van-cell__value"><input type="text" maxlength="15" placeholder="名字" class="van-field__control" v-model="receiver"></div>
@@ -40,7 +42,7 @@ import { UserId } from 'common/js/common'
 import { creatAddress } from 'api/address'
 import {UserInfo} from "../common/js/common";
 export default {
-  name: 'addAdress',
+  //name: 'addAdress',
   components: {
     headBar
   },
@@ -49,7 +51,8 @@ export default {
       receiver: '',
       reciverPhone: '',
       reciverAddress: '',
-      userInfo:''
+      userInfo:'',
+      data:{}
     }
   },
   mounted(){
@@ -79,12 +82,14 @@ export default {
         re_phone:this.reciverPhone
       }
       creatAddress(options).then(res =>{
+        console.log(res);
         if(res.data.ok){
           this.$toast('添加地址成功');
-          this.$router.push({
+          /*this.$router.push({
             name: `orderInfo`,
             params: this.data
-          })
+          })*/
+          this.$emit('addAdress',res.data.data);
         }
       })
     },
@@ -94,6 +99,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .headBar{height: 50px;line-height: 50px;width: 100%;}
+  .navBar{height: 50px;line-height: 50px;width: 100%;background:rgba(247,247,247,1);position: fixed;top:0;left: 0;z-index: 10;}
+  .goBack{display: block; width: 8px;height: 14px;padding: 4px;position: absolute;top: 16px;left: 20px;}
+  .navName{font-size: 18px;color:rgba(0,0,0,1);text-align: center;height: 50px;line-height: 50px;}
+
 .footerBtn{width: 100%; position: fixed;bottom: 0;left: 0;}
 
 </style>

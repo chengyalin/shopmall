@@ -1,7 +1,9 @@
 <template>
     <!--添加宽带安装地址-->
     <div class="InstallationAddress">
-      <headBar title="填写宽带安装地址"></headBar>
+      <div class="headBar">
+        <div class="navBar"><p class="navName">填写宽带安装地址</p></div>
+      </div>
       <div class="radioSlect">
         <van-radio-group v-model="radio">
           <van-radio class="radioStyle" name="1" @click="writeAddrShow">买锁免费赠送宽带</van-radio>
@@ -61,14 +63,10 @@
 </template>
 
 <script>
-  import headBar from './headBar'
   import { creatInstallationAddress } from 'api/InstallationAddress'
   import {UserInfo} from "../common/js/common";
 export default {
-  name: 'InstallationAddress',
-  components :{
-    headBar
-  },
+  //name: 'InstallationAddress',
   data () {
     return {
       radio: '1',
@@ -81,7 +79,8 @@ export default {
       youTime:'',
       userCity:'',
       userArea:'',
-      detailAddr:''
+      detailAddr:'',
+      data:{}
     }
   },
   mounted(){
@@ -89,36 +88,40 @@ export default {
   },
   methods: {
     saveBtn () {
-      if(this.userName === ''){
+      if(this.radio === '1' && this.userName === ''){
         this.$toast('请填写姓名');
         return;
       }
-      if(this.youPhone === ''){
+      if(this.radio === '1' && this.youPhone === ''){
         this.$toast('请填写预约人电话');
         return;
       }
-      if(this.selfCard === ''){
+      if(this.radio === '1' && this.selfCard === ''){
         this.$toast('请填写省份证号码');
         return;
       }
-      if(this.youTime === ''){
+      if(this.radio === '1' && this.youTime === ''){
         this.$toast('请填写预约时间');
         return;
       }
-      if(this.userCity === ''){
+      if(this.radio === '1' && this.userCity === ''){
         this.$toast('请填写所在市');
         return;
       }
-      if(this.userArea === ''){
+      if(this.radio === '1' && this.userArea === ''){
         this.$toast('请填写所在区');
         return;
       }
-      if(this.detailAddr === ''){
+      if(this.radio === '1' && this.detailAddr === ''){
         this.$toast('请填写详细地址');
         return;
+      }else{
+        this.getInstallationAddress();
       }
-
-      this.getInstallationAddress();
+      if (this.radio === '2'){
+        this.$emit('noAddress',false);
+        return;
+      }
     },
     getInstallationAddress(){
       let options = {
@@ -132,10 +135,11 @@ export default {
       creatInstallationAddress(options).then(res =>{
         if(res.data.ok){
           this.$toast('添加宽带安装信息成功');
-          this.$router.push({
+          /*this.$router.push({
             name: `orderInfo`,
             params: this.data
-          })
+          })*/
+          this.$emit('InstallationAddress',res.data.data);
         }
       })
     },
@@ -151,6 +155,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.headBar{height: 50px;line-height: 50px;width: 100%;}
+.navBar{height: 50px;line-height: 50px;width: 100%;background:rgba(247,247,247,1);position: fixed;top:0;left: 0;z-index: 10;}
+.goBack{display: block; width: 8px;height: 14px;padding: 4px;position: absolute;top: 16px;left: 20px;}
+.navName{font-size: 18px;color:rgba(0,0,0,1);text-align: center;height: 50px;line-height: 50px;}
+
 .comapnyAndSelf{border-bottom: 1px solid #e5e5e5;height: 38px;line-height: 38px;}
 .comapnyAndSelf p{display: inline-block; font-size:14px;color:rgba(0,0,0,1);width: 100%;float: left;text-align: center;}
 .comapnyAndSelf span.active{border-bottom: 2px solid rgba(225,70,59,1);padding:0 10px 10px;}

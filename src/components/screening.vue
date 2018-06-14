@@ -164,5 +164,10 @@
     font-size: 12px;
     color: rgba(110, 110, 110, 1);
     text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 30px;
+    line-height: 30px;
   }
 </style>

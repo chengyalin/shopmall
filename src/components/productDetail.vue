@@ -111,7 +111,8 @@
           return;
         }
         //如果选择了商品就跳到orderInfo界面
-        this.orderData.title = this.detail.title;
+        this.orderData.title = this.detail.title//将商品标题传到orderInfo
+        this.orderData.price = this.detail.price//将商品单价传到orderInfo
         this.$router.push({
           name: `orderInfo`,
           params: this.orderData //路由传参
