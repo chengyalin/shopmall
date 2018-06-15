@@ -1,7 +1,7 @@
 <template>
   <!--刷选-->
   <div class="screening">
-    <headBar title="智能家居"></headBar>
+    <headBar title="优点商城"></headBar>
     <div class="leftBar">
       <p @click="leftTabBarChange(item,index)" class="nameNav" :class="{'active':isActive === index}" v-for="(item,index) in leftTabBar"><span>{{item}}</span></p>
     </div>
@@ -32,15 +32,15 @@
     },
     data() {
       return {
-        leftTabBar: ['新品', '门锁','马桶盖'],
+        leftTabBar: ['新品', '智能', '家居', '灯具'],
         isActive: 0,
         productArray: [],
         letTitle:'新品',
 
         productType1: [],
         productType2: [],
-        //productType3: [],
-        //productType4: [],
+        productType3: [],
+        productType4: [],
 
       }
     },
@@ -58,12 +58,12 @@
           case 1:
             this.productArray = this.productType2;
             break;
-     /*     case 2:
+          case 2:
             this.productArray = this.productType3;
             break;
           case 3:
             this.productArray = this.productType4;
-            break;*/
+            break;
         }
       },
       getProductList() {
@@ -72,18 +72,18 @@
           console.log(res)
           if(res.data.ok) {
             res.data.data.map(item => {
-              if(item.is_hot === true) {
+              if(item.category_id === 1) {
                 this.productType1.push(item);
               }
-              if(item.category_id === 1) {
+              if(item.category_id === 2) {
                 this.productType2.push(item);
               }
-           /*   if(item.category_id === 3) {
+              if(item.category_id === 3) {
                 this.productType3.push(item);
               }
               if(item.category_id === 4) {
                 this.productType4.push(item);
-              }*/
+              }
             })
             this.productArray = this.productType1;
           }

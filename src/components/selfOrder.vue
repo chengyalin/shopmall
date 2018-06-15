@@ -164,7 +164,7 @@
   .dataTime{font-size: 12px;color:rgba(216,216,216,1);margin-top: 18px;}
 
   .proRight{float: right;width: 80px;}
-  .oldPrice{font-size: 16px;margin: 20px 0 4px}
+  .oldPrice{font-size: 16px;margin: 20px 0 4px;color: rgba(0,0,0,1);}
   .price{font-size: 14px; color: rgba(216,216,216,1);text-decoration: line-through;}
 
 
