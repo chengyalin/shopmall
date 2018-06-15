@@ -3,17 +3,30 @@
   <div class="screening">
     <headBar title="智能家居"></headBar>
     <div class="leftBar">
-      <p @click="leftTabBarChange(item,index)" class="nameNav" :class="{'active':isActive === index}" v-for="(item,index) in leftTabBar"><span>{{item}}</span></p>
+      <p @click="leftTabBarChange(item,index)" class="nameNav" :class="{'active':isActive === index}" v-for="(item,index) in productArray">
+        <span v-if="index===0">新品</span>
+        <span v-else>{{item.title}}</span>
+      </p>
     </div>
     <div class="rightBox">
-      <div class="proMain">
-        <h2 class="name"><span>{{letTitle}}</span></h2>
-        <div class="proList">
-          <router-link tag="div" class="proBox" :to="{path:'/productDetail',query: {productId: item.product_id}}" v-for="(item,index) in productArray" :key="index">
-            <img :src="'http://tianyi.zhongkakeji.com/media/' + item.image" alt="" class="proImg">
-            <p class="title">{{item.title}}</p>
+      <div class="proMain" v-for="(item,index) in productArray" v-show="isActive===index">
+        <h2 class="name">
+          <span v-if="index===0">新品</span>
+          <span v-else>{{item.title}}</span>
+        </h2>
+        <div class="proList" v-if="index===0">
+          <router-link tag="div" class="proBox" :to="{path:'/productDetail',query: {productId: info.product_id}}" v-for="(info,index) in item" :key="index">
+            <img :src="'http://tianyi.zhongkakeji.com/media/' + info.image" alt="" class="proImg">
+            <p class="title">{{info.title}}</p>
           </router-link>
-          <p v-show="productArray.length === 0">暂无数据...</p>
+          <!--					<p v-show="productArray.length === 0">暂无数据...</p>-->
+        </div>
+        <div class="proList" v-else>
+          <router-link tag="div" class="proBox" :to="{path:'/productDetail',query: {productId: info.product_id}}" v-for="(info,index) in item.product_list" :key="index">
+            <img :src="'http://tianyi.zhongkakeji.com/media/' + info.image" alt="" class="proImg">
+            <p class="title">{{info.title}}</p>
+          </router-link>
+          <p v-show="item.product_list.length === 0">暂无数据...</p>
         </div>
       </div>
     </div>
@@ -24,6 +37,7 @@
   import headBar from './headBar'
   import footerBar from './footerBar'
   import { productList } from 'api/product'
+  import { productListOther } from 'api/product'
   export default {
     name: 'screening',
     components: {
@@ -32,63 +46,39 @@
     },
     data() {
       return {
-        leftTabBar: ['新品', '门锁','马桶盖'],
+        leftTabBar: [],
         isActive: 0,
         productArray: [],
-        letTitle:'新品',
-
-        productType1: [],
-        productType2: [],
-        //productType3: [],
-        //productType4: [],
-
+        letTitle: '',
       }
     },
     mounted() {
       this.getProductList();
+
     },
     methods: {
-      leftTabBarChange(item,index) {
+      leftTabBarChange(item, index) {
         this.letTitle = item;
         this.isActive = index;
-        switch(index) {
-          case 0:
-            this.productArray = this.productType1;
-            break;
-          case 1:
-            this.productArray = this.productType2;
-            break;
-     /*     case 2:
-            this.productArray = this.productType3;
-            break;
-          case 3:
-            this.productArray = this.productType4;
-            break;*/
-        }
       },
       getProductList() {
-        console.log(111)
         productList().then(res => {
-          console.log(res)
           if(res.data.ok) {
-            res.data.data.map(item => {
-              if(item.is_hot === true) {
-                this.productType1.push(item);
-              }
-              if(item.category_id === 1) {
-                this.productType2.push(item);
-              }
-           /*   if(item.category_id === 3) {
-                this.productType3.push(item);
-              }
-              if(item.category_id === 4) {
-                this.productType4.push(item);
-              }*/
-            })
-            this.productArray = this.productType1;
+            this.productArray.push(res.data.data);
+            this.getProductListOther();
           }
         })
-      }
+      },
+      getProductListOther() {
+        productListOther().then(res => { //其他分类另外一个接口
+          if(res.data.ok) {
+            res.data.data.map(item => {
+              this.productArray.push(item);
+            })
+            console.log(this.productArray)
+          }
+        })
+      },
     }
   }
 </script>

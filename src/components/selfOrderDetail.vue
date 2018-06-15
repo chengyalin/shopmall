@@ -63,7 +63,7 @@ export default {
     console.log(this.$route.params);
     this.data = this.$route.params;
     this.userInfo = UserInfo();
-    this.active = this.data.order_status
+    this.active = this.data.order_status-1
   },
   methods : {
 
