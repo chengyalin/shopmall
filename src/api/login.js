@@ -3,7 +3,7 @@ import axios from 'axios'
  * 获取验证码
  */
 export function sendCode(options){
-  return axios.get('accounts/code/send',{
+  return axios.get('accounts/code/send/',{
     params: options
   }).then((res) => {
     return Promise.resolve(res)
@@ -17,7 +17,7 @@ export function sendCode(options){
  */
 
 export function login(options){
-  return axios.get('accounts/code/verify',{
+  return axios.get('accounts/code/verify/',{
     params: options
   }).then((res) => {
     return Promise.resolve(res)

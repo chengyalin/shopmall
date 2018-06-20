@@ -127,7 +127,7 @@
 <style scoped>
   .bannerBox{width:100%; height: 210px;margin: 0 auto;}
   .bannerImgBox{display: block;width:100%; height: 210px;}
-  .bannerImgBox img{width:100%;height: 210px;}
+  .bannerImgBox img{display: block; width:210px;height: 210px;margin: 0 auto;}
 
   .detailInfo{padding: 10px;border-bottom:1px solid rgba(240,240,240,1);}
   .title{color:rgba(0,0,0,1);font-size: 18px;line-height:26px;}

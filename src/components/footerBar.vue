@@ -8,7 +8,7 @@
       </router-link>
       <router-link to="screening" class="navTab">
         <i class="footerIconTwo"></i>
-        <p>筛选</p>
+        <p>智能家居</p>
       </router-link>
       <router-link to="selfOrder" class="navTab">
         <i class="footerIconThree"></i>
