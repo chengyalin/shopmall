@@ -30,12 +30,22 @@
       <div class="tabContent" v-show="isActive === 1"><img v-lazy="'http://tianyi.zhongkakeji.com/media/' + detail.parameter_image"  alt="" class="introPro"></div>
 
     </div>
-    <div class="footerBtn" @click="handleBuy">
-      <van-row>
-        <van-col span="24">
-          <van-button bottom-action>立刻购买</van-button>
-        </van-col>
-      </van-row>
+    <div class="footerBtn">
+      <a href="tel:0571866000" class="telZX">
+        <img src="/static/img/telicon.png" alt="">
+        <p>电话咨询</p>
+      </a>
+      <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1510823536&site=qq&menu=yes" class="qqZX">
+        <img src="/static/img/qqicon.png" alt="">
+        <p>QQ咨询</p>
+      </a>
+      <div class="footerR" @click="handleBuy">
+        <van-row>
+          <van-col span="24">
+            <van-button bottom-action>立刻购买</van-button>
+          </van-col>
+        </van-row>
+      </div>
     </div>
     <!--加载-->
     <!--商品选择-->
@@ -145,7 +155,16 @@
 
   .introPro{max-width: 100%;display: block;margin: 0 auto;}
 
-  .footerBtn{width: 100%; position: fixed;bottom: 0;left: 0;}
+  .footerBtn{width: 100%; position: fixed;bottom: 0;left: 0;background-color: #fff;}
+  .telZX{width: 50px;height: 50px;float: left;text-align: center;padding-left: 10px;display: block;}
+  .telZX img{display: block;width:18px;height: 18px;margin: 6px auto;}
+  .telZX p{font-size: 0.12rem;color: #666;}
+  .qqZX{width: 50px;height: 50px;float: left;text-align: center;padding-left: 10px;display: block;}
+  .qqZX img{display: block;width:18px;height: 18px;margin: 6px auto;}
+  .qqZX p{font-size: 0.12rem;color: #666;}
+  .footerBtn .footerR{float: right;width: 60%;}
+
+
   .productDetail{padding-bottom: 50px;}
 
   .loadPosition{position: fixed;
@@ -153,4 +172,5 @@
     left:50%;
     transform:translate(-50%,-50%);}
   .goods-box{width: 100%;height: 100%;overflow: scroll;}
+
 </style>
