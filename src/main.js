@@ -43,7 +43,7 @@ Vue.use(Icon)
 Vue.config.productionTip = false
 
 
-axios.defaults.baseURL = 'http://tianyi.zhongkakeji.com/';
+axios.defaults.baseURL = 'https://tianyi.zhongkakeji.com/';
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

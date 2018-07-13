@@ -12,7 +12,7 @@
             <img :src="'http://tianyi.zhongkakeji.com/media/' + item.image" alt="">
             <p class="name">{{item.title}}</p>
             <p class="info">{{item.pre_info}}</p>
-            <p class="price">{{item.price}}</p>
+            <p class="price">￥{{item.price}}</p>
           </router-link>
         </div>
       </div>

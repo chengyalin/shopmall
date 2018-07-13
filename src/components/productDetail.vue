@@ -11,12 +11,25 @@
       </van-swipe>
     </div>
     <div class="detailInfo">
-      <h2 class="title">{{detail.title}}</h2>
+      <h2 class="title">{{detail.title}}  <span class="preferential" @click="showMaskMain = true">优惠详情</span></h2>
       <p class="detailDesc">{{detail.descp}}</p>
       <p class="price">￥{{detail.price}}</p>
+      <!--优惠详情弹框内容-->
+      <van-popup v-model="showMaskMain" >
+        <div class="showMainPopupBox">
+          <h2>优惠说明：</h2>
+          1、山东区域用户购买优点智能门锁E1，可在山东17地市免费享受1年的100M光纤宽带，同时赠送1年的联通高清电视；<br>
+          2、山东区域用户购买优点智能门锁C1，可在山东17地市享受350元的宽带补贴，或享受300元话费补贴，该补贴不可兑换现金。<br>
+          3、山东区域用户购买优点智能门锁C1N，可在山东17地市享受250元的宽带补贴，或享受200元话费补贴，该补贴不可兑换现金。
+          <h2>特别提醒：</h2>
+          1、办理宽带需收取用户终端设备押金100元（包括ONU设备、IPTV机顶盒等）；若办理拆机，用户需将租用的终端设备退回联通营业厅，同时办理押金退还手续。<br>
+          2、下单前，请咨询联通客服10010，确认预装宽带小区的资源。<br>
+          3、对于本优惠条款，有疑问，请咨询：13325136435;QQ:3314136281<br>
+        </div>
+      </van-popup>
     </div>
     <div class="selectPro" @click="goGood">
-      <span class="chooseWord">已选</span>
+      <span class="chooseWord">规格</span>
       <span class="selctInfo">{{orderData.colorTitle}}{{orderData.netWorkTitle}}{{orderData.value}}{{orderData.totalPrice}}{{orderData.goodsNum}}</span>
       <img src="/static/img/goforward.png" alt="" class="goChoose">
     </div>
@@ -31,11 +44,12 @@
 
     </div>
     <div class="footerBtn">
-      <a href="tel:0571866000" class="telZX">
+      <a href="tel:13325136435" class="telZX">
         <img src="/static/img/telicon.png" alt="">
         <p>电话咨询</p>
       </a>
-      <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1510823536&site=qq&menu=yes" class="qqZX">
+      <!--<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=3314136281&site=qq&menu=yes" class="qqZX"> pc网页唤起qq-->
+      <a target="_blank" href="mqqwpa://im/chat?chat_type=wpa&uin=3314136281&version=1&src_type=web&web_src=oicqzone.com" class="qqZX">
         <img src="/static/img/qqicon.png" alt="">
         <p>QQ咨询</p>
       </a>
@@ -53,7 +67,7 @@
       <product-detail-screen :data="detail" @orderInfo="order"></product-detail-screen>
     </van-popup>
     <van-loading v-if="LoadingOk" type="spinner" color="black" class="loadPosition" />
-    <!--点击购买，如果没有选择商品则提示选择商品-->
+
   </div>
 </template>
 
@@ -78,8 +92,8 @@
         loginBoxShow:false,
         goodShow: false,
 
-        orderData:{}
-
+        orderData:{},
+        showMaskMain: false //优惠详情
       }
     },
     created () {
@@ -140,9 +154,10 @@
   .bannerImgBox img{display: block; width:210px;height: 210px;margin: 0 auto;}
 
   .detailInfo{padding: 10px;border-bottom:1px solid rgba(240,240,240,1);}
-  .title{color:rgba(0,0,0,1);font-size: 18px;line-height:26px;}
+  .title{color:rgba(0,0,0,1);font-size: 18px;line-height:26px;padding-right:0.8rem;}
   .detailDesc{color:rgba(155,155,155,1);font-size: 14px;line-height:22px;}
   .price{color:rgba(245,4,34,1);font-size: 20px;}
+  .preferential{font-size: 16px;color: #666;font-weight: normal;position:absolute;right: 10px ;color: rgba(245,4,34,1);}
 
   .selectPro{height: 44px;line-height: 44px;border-bottom: 10px solid rgba(247,247,247,1);}
   .chooseWord{display: inline-block;color: #787878;float: left;margin: 0 10px}
@@ -173,4 +188,14 @@
     transform:translate(-50%,-50%);}
   .goods-box{width: 100%;height: 100%;overflow: scroll;}
 
+  .showMainPopupBox{padding: 0.2rem;
+    width: 3rem;
+    height: 5rem;
+    overflow-y: scroll;
+    font-size: 14px;line-height: 24px;
+    color: #666;
+  }
+  .showMainPopupBox h2{
+    font-size: 18px;color: #333;height: 30px;line-height: 30px;
+  }
 </style>
