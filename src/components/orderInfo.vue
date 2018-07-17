@@ -149,6 +149,8 @@ export default {
         return;
       }*/
       let data = this.data;
+      let userIp = returnCitySN["cip"]//获取用户ip
+      console.log('userIp' +userIp);
       let options = {
         channel: this.radio,
         product_id:data.product_id,
@@ -158,6 +160,7 @@ export default {
         total_fee:data.total_fee,
         mode_id:data.mode_id,
         count:data.goodsNum,
+        ip:userIp
       }
       creatOrder(options).then(res =>{
         console.log(res);

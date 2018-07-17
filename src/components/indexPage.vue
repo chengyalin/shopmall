@@ -49,6 +49,8 @@
     },
     created() {},
     mounted() {
+
+      // console.log(returnCitySN["cip"]+','+returnCitySN["cname"]);//获取用户ip和城市
       this.fetchSlideList();
       this.getProductList();
 
@@ -59,7 +61,7 @@
         let options = {
           is_terminal: 'False'
         }
-        let STATIC_URL = 'https://tianyi.zhongkakeji.com/media/'
+        let STATIC_URL = 'http://tianyi.zhongkakeji.com/media/'
         bannerList(options).then(({data}) => {
           if(data.ok) {
             this.sildeList = data.data.map(i => {
